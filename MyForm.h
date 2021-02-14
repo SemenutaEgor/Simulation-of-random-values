@@ -1,6 +1,8 @@
 #pragma once
 #include <math.h>
 #include <random>
+#include <vector>
+#include "randval.h"
 
 namespace Graph {
 
@@ -63,9 +65,18 @@ namespace Graph {
 	private: System::Windows::Forms::TextBox^  textBox5;
 	private: System::Windows::Forms::Label^  label5;
 	private: System::Windows::Forms::PictureBox^ task14;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ number;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Y_i;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ n_i;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ n_idivn;
+	private: System::Windows::Forms::Label^ label2;
+
+
+
+
+
+
+
 
 
 
@@ -106,9 +117,11 @@ namespace Graph {
 			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->task14 = (gcnew System::Windows::Forms::PictureBox());
+			this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Y_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->n_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->n_idivn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->task14))->BeginInit();
 			this->SuspendLayout();
@@ -145,17 +158,18 @@ namespace Graph {
 			// dataGridView1
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
-				this->Y_i, this->n_i,
-					this->n_idivn
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
+				this->number,
+					this->Y_i, this->n_i, this->n_idivn
 			});
-			this->dataGridView1->Location = System::Drawing::Point(534, 188);
+			this->dataGridView1->Location = System::Drawing::Point(476, 188);
 			this->dataGridView1->Margin = System::Windows::Forms::Padding(5);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersVisible = false;
 			this->dataGridView1->RowHeadersWidth = 51;
-			this->dataGridView1->Size = System::Drawing::Size(408, 190);
+			this->dataGridView1->Size = System::Drawing::Size(503, 190);
 			this->dataGridView1->TabIndex = 2;
+			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView1_CellContentClick);
 			// 
 			// label1
 			// 
@@ -190,11 +204,12 @@ namespace Graph {
 			// 
 			// probbox
 			// 
-			this->probbox->Location = System::Drawing::Point(369, 228);
+			this->probbox->Location = System::Drawing::Point(359, 228);
 			this->probbox->Margin = System::Windows::Forms::Padding(5);
 			this->probbox->Name = L"probbox";
 			this->probbox->Size = System::Drawing::Size(107, 26);
 			this->probbox->TabIndex = 6;
+			this->probbox->TextChanged += gcnew System::EventHandler(this, &MyForm::probbox_TextChanged);
 			// 
 			// label3
 			// 
@@ -217,7 +232,7 @@ namespace Graph {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(964, 672);
+			this->button2->Location = System::Drawing::Point(19, 333);
 			this->button2->Margin = System::Windows::Forms::Padding(5);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(236, 45);
@@ -228,11 +243,12 @@ namespace Graph {
 			// 
 			// numofexpbox
 			// 
-			this->numofexpbox->Location = System::Drawing::Point(369, 192);
+			this->numofexpbox->Location = System::Drawing::Point(359, 192);
 			this->numofexpbox->Margin = System::Windows::Forms::Padding(5);
 			this->numofexpbox->Name = L"numofexpbox";
 			this->numofexpbox->Size = System::Drawing::Size(107, 26);
 			this->numofexpbox->TabIndex = 13;
+			this->numofexpbox->TextChanged += gcnew System::EventHandler(this, &MyForm::numofexpbox_TextChanged);
 			// 
 			// numofexplabel
 			// 
@@ -275,6 +291,12 @@ namespace Graph {
 			this->task14->TabIndex = 14;
 			this->task14->TabStop = false;
 			// 
+			// number
+			// 
+			this->number->HeaderText = L"№";
+			this->number->MinimumWidth = 6;
+			this->number->Name = L"number";
+			// 
 			// Y_i
 			// 
 			this->Y_i->HeaderText = L"y_i";
@@ -299,11 +321,21 @@ namespace Graph {
 			this->n_idivn->ReadOnly = true;
 			this->n_idivn->Width = 135;
 			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(197, 224);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(145, 20);
+			this->label2->TabIndex = 15;
+			this->label2->Text = L"(через запятую)";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(10, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(997, 728);
+			this->ClientSize = System::Drawing::Size(997, 649);
+			this->Controls->Add(this->label2);
 			this->Controls->Add(this->numofexpbox);
 			this->Controls->Add(this->numofexplabel);
 			this->Controls->Add(this->textBox5);
@@ -331,14 +363,16 @@ namespace Graph {
 
 		}
 #pragma endregion
-	private: 
-		double f1(double x){
-			return sin(x);
-		}
+	//private: 
+	//	double f1(double x){
+	//		return sin(x);
+	//	}
 
-		double f2(double x) {
-			return sin(2 * x);
-		}
+	//	double f2(double x) {
+	//		return sin(2 * x);
+	//	}
+
+
 
 	private: System::Void startbutton_Click(System::Object^  sender, System::EventArgs^  e) {
 
@@ -349,26 +383,52 @@ namespace Graph {
 
 		// Интервал, где есть данные
 		//double xmin = Convert::ToDouble(textBox1->Text);
+
+		//Забираем вероятность и количество экспериментов из текстбоксов
 		double probability = Convert::ToDouble(probbox->Text);
 		double numofexp = Convert::ToDouble(numofexpbox->Text);
-		int sum = 0;
 
-		while(true) {
-			double t = rand();
-			double newt = t / RAND_MAX;
-			if (newt >= probability) {
-				sum++;
+		std::vector<randval> randvalarr;
+		randvalarr.push_back(randval(0));
+
+		for (int i = 0; i < numofexp; i++) {
+
+			double sum = 0;
+			while (true) {
+				double t = rand();
+				double newt = t / RAND_MAX;
+				if (newt >= probability) {
+					sum++;
+				}
+				else
+					break;
 			}
-			else
-				break;
+
+			bool flag = false;
+			for (randval &j : randvalarr) {
+				if (j.getval() == sum) {
+					j.incrementfrequency();
+					flag = true;
+				}
+			}
+			if (flag == false) {
+				randvalarr.push_back(randval(sum));
+			}
 		}
 
-		//Печать в таблицу
+		sort(randvalarr.begin(), randvalarr.end(), comp);
 
-		dataGridView1->Rows->Add();
-		dataGridView1->Rows[0]->Cells[0]->Value = sum; 			
-		dataGridView1->Rows[0]->Cells[1]->Value = sum;
-		dataGridView1->Rows[0]->Cells[2]->Value = sum;
+		//Печать в таблицу
+		int k = 0;
+		for (randval j : randvalarr) {
+			dataGridView1->Rows->Add();
+			dataGridView1->Rows[k]->Cells[0]->Value = k;
+			dataGridView1->Rows[k]->Cells[1]->Value = j.getval();
+			dataGridView1->Rows[k]->Cells[2]->Value = j.getfrequency();
+			dataGridView1->Rows[k]->Cells[3]->Value = j.getfrequency() / numofexp;
+			k++;
+		}
+
 
 		//double h = Convert::ToDouble(textBox3->Text);
 
@@ -416,23 +476,30 @@ namespace Graph {
 	private: System::Void zedGraphControl1_Load(System::Object^  sender, System::EventArgs^  e) {
 	}
 
-private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-	
-	GraphPane^ panel = zedGraphControl1->GraphPane;
-	double xmin = Convert::ToDouble(textBox5->Text);
-	double xmax = Convert::ToDouble(numofexpbox->Text);
-	// Устанавливаем интересующий нас интервал по оси X
-	panel->XAxis->Scale->Min = xmin;
-	panel->XAxis->Scale->Max = xmax;
 
-	// Вызываем метод AxisChange (), чтобы обновить данные об осях. 
-	// В противном случае на рисунке будет показана только часть графика, 
-	// которая умещается в интервалы по осям, установленные по умолчанию
-	zedGraphControl1->AxisChange();
-	// Обновляем график
-	zedGraphControl1->Invalidate();
+private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	//GraphPane^ panel = zedGraphControl1->GraphPane;
+	//double xmin = Convert::ToDouble(textBox5->Text);
+	//double xmax = Convert::ToDouble(numofexpbox->Text);
+	//// Устанавливаем интересующий нас интервал по оси X
+	//panel->XAxis->Scale->Min = xmin;
+	//panel->XAxis->Scale->Max = xmax;
+
+	//// Вызываем метод AxisChange (), чтобы обновить данные об осях. 
+	//// В противном случае на рисунке будет показана только часть графика, 
+	//// которая умещается в интервалы по осям, установленные по умолчанию
+	//zedGraphControl1->AxisChange();
+	//// Обновляем график
+	//zedGraphControl1->Invalidate();
 
 }
 
+private: System::Void numofexpbox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void probbox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+}
 };
 }
