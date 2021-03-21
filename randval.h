@@ -4,17 +4,23 @@ class randval {
 private:
 	double val;
 	double frequency;
+	double prob;
+	double relcumfreq;
 public:
 	//default constructor
 	randval() {
 		val = 0;
 		frequency = 0;
+		prob = 0;
+		relcumfreq = 0;
 	};
 
 	//constructor with parameters
 	randval(double _val) {
 		val = _val;
 		frequency = 1;
+		prob = 0;
+		relcumfreq = 0;
 	}
 
 	//set&get
@@ -39,6 +45,21 @@ public:
 		frequency++;
 	}
 
+	void setprob(double newprob) {
+		prob = newprob;
+	}
+
+	double getprob() {
+		return prob;
+	}
+
+	void setrelcumfreq(double newrelcumfreq) {
+		relcumfreq = newrelcumfreq;
+	}
+
+	double getrelcumfreq() {
+		return relcumfreq;
+	}
 	//compare operators
 
 	friend bool operator> (const randval& d1, const randval& d2);

@@ -94,7 +94,44 @@ namespace Graph {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Sigmai;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Sigmain;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ theoreticalprobability;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column2;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ maxdiffofprob;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -137,14 +174,6 @@ namespace Graph {
 			this->zedGraphControl1 = (gcnew ZedGraph::ZedGraphControl());
 			this->startbutton = (gcnew System::Windows::Forms::Button());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Y_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->n_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->n_idivn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Sigmai = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Sigmain = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->theoreticalprobability = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->maxdiffofprob = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->problabel = (gcnew System::Windows::Forms::Label());
@@ -167,6 +196,16 @@ namespace Graph {
 			this->varminussamplevir = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->samplemedian = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->samplespan = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Y_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->n_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->n_idivn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Sigmai = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Sigmain = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->theoreticalprobability = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Column1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Column2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->maxdiffofprob = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->task14))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
@@ -204,9 +243,10 @@ namespace Graph {
 			// dataGridView1
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(8) {
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(10) {
 				this->number,
-					this->Y_i, this->n_i, this->n_idivn, this->Sigmai, this->Sigmain, this->theoreticalprobability, this->maxdiffofprob
+					this->Y_i, this->n_i, this->n_idivn, this->Sigmai, this->Sigmain, this->theoreticalprobability, this->Column1, this->Column2,
+					this->maxdiffofprob
 			});
 			this->dataGridView1->Location = System::Drawing::Point(10, 186);
 			this->dataGridView1->Margin = System::Windows::Forms::Padding(5);
@@ -216,65 +256,6 @@ namespace Graph {
 			this->dataGridView1->Size = System::Drawing::Size(707, 190);
 			this->dataGridView1->TabIndex = 2;
 			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView1_CellContentClick);
-			// 
-			// number
-			// 
-			this->number->HeaderText = L"№";
-			this->number->MinimumWidth = 6;
-			this->number->Name = L"number";
-			this->number->Width = 125;
-			// 
-			// Y_i
-			// 
-			this->Y_i->HeaderText = L"y_i";
-			this->Y_i->MinimumWidth = 6;
-			this->Y_i->Name = L"Y_i";
-			this->Y_i->ReadOnly = true;
-			this->Y_i->Width = 135;
-			// 
-			// n_i
-			// 
-			this->n_i->HeaderText = L"n_i";
-			this->n_i->MinimumWidth = 6;
-			this->n_i->Name = L"n_i";
-			this->n_i->ReadOnly = true;
-			this->n_i->Width = 135;
-			// 
-			// n_idivn
-			// 
-			this->n_idivn->HeaderText = L"n_i/n";
-			this->n_idivn->MinimumWidth = 6;
-			this->n_idivn->Name = L"n_idivn";
-			this->n_idivn->ReadOnly = true;
-			this->n_idivn->Width = 135;
-			// 
-			// Sigmai
-			// 
-			this->Sigmai->HeaderText = L"Sigma(i)";
-			this->Sigmai->MinimumWidth = 6;
-			this->Sigmai->Name = L"Sigmai";
-			this->Sigmai->Width = 125;
-			// 
-			// Sigmain
-			// 
-			this->Sigmain->HeaderText = L"Sigma(i)/n";
-			this->Sigmain->MinimumWidth = 6;
-			this->Sigmain->Name = L"Sigmain";
-			this->Sigmain->Width = 125;
-			// 
-			// theoreticalprobability
-			// 
-			this->theoreticalprobability->HeaderText = L"P(y_i)";
-			this->theoreticalprobability->MinimumWidth = 6;
-			this->theoreticalprobability->Name = L"theoreticalprobability";
-			this->theoreticalprobability->Width = 125;
-			// 
-			// maxdiffofprob
-			// 
-			this->maxdiffofprob->HeaderText = L"|n_i/n - P(y_i)|";
-			this->maxdiffofprob->MinimumWidth = 6;
-			this->maxdiffofprob->Name = L"maxdiffofprob";
-			this->maxdiffofprob->Width = 150;
 			// 
 			// label1
 			// 
@@ -480,6 +461,79 @@ namespace Graph {
 			this->samplespan->Name = L"samplespan";
 			this->samplespan->Width = 125;
 			// 
+			// number
+			// 
+			this->number->HeaderText = L"№";
+			this->number->MinimumWidth = 6;
+			this->number->Name = L"number";
+			this->number->Width = 125;
+			// 
+			// Y_i
+			// 
+			this->Y_i->HeaderText = L"y_i";
+			this->Y_i->MinimumWidth = 6;
+			this->Y_i->Name = L"Y_i";
+			this->Y_i->ReadOnly = true;
+			this->Y_i->Width = 135;
+			// 
+			// n_i
+			// 
+			this->n_i->HeaderText = L"n_i";
+			this->n_i->MinimumWidth = 6;
+			this->n_i->Name = L"n_i";
+			this->n_i->ReadOnly = true;
+			this->n_i->Width = 135;
+			// 
+			// n_idivn
+			// 
+			this->n_idivn->HeaderText = L"n_i/n";
+			this->n_idivn->MinimumWidth = 6;
+			this->n_idivn->Name = L"n_idivn";
+			this->n_idivn->ReadOnly = true;
+			this->n_idivn->Width = 135;
+			// 
+			// Sigmai
+			// 
+			this->Sigmai->HeaderText = L"Sigma(i)";
+			this->Sigmai->MinimumWidth = 6;
+			this->Sigmai->Name = L"Sigmai";
+			this->Sigmai->Width = 125;
+			// 
+			// Sigmain
+			// 
+			this->Sigmain->HeaderText = L"Sigma(i)/n";
+			this->Sigmain->MinimumWidth = 6;
+			this->Sigmain->Name = L"Sigmain";
+			this->Sigmain->Width = 125;
+			// 
+			// theoreticalprobability
+			// 
+			this->theoreticalprobability->HeaderText = L"P(y_i)";
+			this->theoreticalprobability->MinimumWidth = 6;
+			this->theoreticalprobability->Name = L"theoreticalprobability";
+			this->theoreticalprobability->Width = 125;
+			// 
+			// Column1
+			// 
+			this->Column1->HeaderText = L"F(x) теор.";
+			this->Column1->MinimumWidth = 6;
+			this->Column1->Name = L"Column1";
+			this->Column1->Width = 125;
+			// 
+			// Column2
+			// 
+			this->Column2->HeaderText = L"F(x) выб.";
+			this->Column2->MinimumWidth = 6;
+			this->Column2->Name = L"Column2";
+			this->Column2->Width = 125;
+			// 
+			// maxdiffofprob
+			// 
+			this->maxdiffofprob->HeaderText = L"|n_i/n - P(y_i)|";
+			this->maxdiffofprob->MinimumWidth = 6;
+			this->maxdiffofprob->Name = L"maxdiffofprob";
+			this->maxdiffofprob->Width = 150;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(10, 20);
@@ -579,6 +633,13 @@ namespace Graph {
 		sort(randvalarr.begin(), randvalarr.end(), comp);
 		sort(allrandvalarr.begin(), allrandvalarr.end(), comp2);
 
+		//form an array of probability values
+		double accumulation = 0;
+		for (randval& j : randvalarr) {
+			accumulation += probability * pow((1 - probability), j.getval());
+			j.setprob(accumulation);
+		}
+
 		//fill in the first table
 
 		int k = 0;
@@ -596,7 +657,10 @@ namespace Graph {
 			abscumfreq += j.getfrequency();
 			dataGridView1->Rows[k]->Cells[4]->Value = abscumfreq; //absolute cumulative frequency
 			dataGridView1->Rows[k]->Cells[5]->Value = abscumfreq / numofexp; //relative cumulative frequency
+			j.setrelcumfreq(abscumfreq / numofexp);
 			dataGridView1->Rows[k]->Cells[6]->Value = probability * pow((1 - probability), j.getval()); //theoretical probability
+			dataGridView1->Rows[k]->Cells[7]->Value = j.getprob(); //theoretical distribution function
+			dataGridView1->Rows[k]->Cells[8]->Value = j.getrelcumfreq(); //sample distribution function
 
 			diffofprobarr.push_back(abs(j.getfrequency() / numofexp - probability * pow((1 - probability), j.getval())));
 
@@ -604,7 +668,7 @@ namespace Graph {
 		}
 
 		double maxdiffofprob = *std::max_element(diffofprobarr.begin(), diffofprobarr.end());
-		dataGridView1->Rows[0]->Cells[7]->Value = maxdiffofprob;
+		dataGridView1->Rows[0]->Cells[9]->Value = maxdiffofprob;
 		//calculate the sample variance
 
 		double samplemean = sumofelements / numofexp;//sample mean
@@ -642,13 +706,6 @@ namespace Graph {
 		dataGridView2->Rows[0]->Cells[6]->Value = samplemedian; //sample median
 		dataGridView2->Rows[0]->Cells[7]->Value = allrandvalarr.back() - allrandvalarr.front(); //sample span
 
-		//form an array of probability values
-
-		std::vector<double>probabilityarr;
-		for (randval j : randvalarr) {
-
-		}
-
 		double h = Convert::ToDouble(textBox3->Text);
 
 
@@ -664,12 +721,17 @@ namespace Graph {
 		// Список точек
 		int i = 0;
 		//dataGridView1->Rows->Clear();
-		for (double x = xmin; x <= xmax; x += h)
-		{
-			//	//Добавление на график
 
-			f1_list->Add(x, f1(x));
-			f2_list->Add(x, f2(x));
+	    //Добавление на график
+
+		double prevprob = 0;
+		f1_list->Add(randvalarr[0].getval(), randvalarr[0].getprob());
+		prevprob = randvalarr[0].getprob();
+		for (randval j : randvalarr) {
+			f1_list->Add(j.getval(), prevprob);
+			f1_list->Add(j.getval(), j.getprob());
+			prevprob = j.getprob();
+			f2_list->Add(j.getval(), j.getprob());
 			//Печать в таблицу
 			//dataGridView1->Rows->Add();
 			//dataGridView1->Rows[i]->Cells[0]->Value = x; 			
