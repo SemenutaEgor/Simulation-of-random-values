@@ -75,3 +75,12 @@ bool comp(randval a, randval b) {
 bool comp2(double a, double b) {
 	return a < b;
 }
+
+double f1(double x) {
+	if (x <= 0) {
+		return 0;
+	}
+	else {
+		return 0;
+	}
+}

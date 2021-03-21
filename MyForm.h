@@ -41,31 +41,31 @@ namespace Graph {
 				delete components;
 			}
 		}
-	private: ZedGraph::ZedGraphControl^  zedGraphControl1;
+	private: ZedGraph::ZedGraphControl^ zedGraphControl1;
 	private: System::Windows::Forms::Button^ startbutton;
 
-	private: System::Windows::Forms::DataGridView^  dataGridView1;
+	private: System::Windows::Forms::DataGridView^ dataGridView1;
 
 
 
-	private: System::Windows::Forms::Label^  label1;
-	private: System::Windows::Forms::TextBox^  textBox1;
+	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::TextBox^ textBox1;
 	private: System::Windows::Forms::Label^ problabel;
 	private: System::Windows::Forms::TextBox^ probbox;
 
 
 
-	private: System::Windows::Forms::Label^  label3;
-	private: System::Windows::Forms::TextBox^  textBox3;
-	private: System::Windows::Forms::Button^  button2;
+	private: System::Windows::Forms::Label^ label3;
+	private: System::Windows::Forms::TextBox^ textBox3;
+	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::TextBox^ numofexpbox;
 
 	private: System::Windows::Forms::Label^ numofexplabel;
 
 
 
-	private: System::Windows::Forms::TextBox^  textBox5;
-	private: System::Windows::Forms::Label^  label5;
+	private: System::Windows::Forms::TextBox^ textBox5;
+	private: System::Windows::Forms::Label^ label5;
 	private: System::Windows::Forms::PictureBox^ task14;
 
 
@@ -117,7 +117,7 @@ namespace Graph {
 
 
 	protected:
-	private: System::ComponentModel::IContainer^  components;
+	private: System::ComponentModel::IContainer^ components;
 
 	private:
 		/// <summary>
@@ -174,7 +174,7 @@ namespace Graph {
 			// 
 			// zedGraphControl1
 			// 
-			this->zedGraphControl1->Location = System::Drawing::Point(897, 102);
+			this->zedGraphControl1->Location = System::Drawing::Point(780, 310);
 			this->zedGraphControl1->Margin = System::Windows::Forms::Padding(6);
 			this->zedGraphControl1->Name = L"zedGraphControl1";
 			this->zedGraphControl1->ScrollGrace = 0;
@@ -184,7 +184,7 @@ namespace Graph {
 			this->zedGraphControl1->ScrollMinX = 0;
 			this->zedGraphControl1->ScrollMinY = 0;
 			this->zedGraphControl1->ScrollMinY2 = 0;
-			this->zedGraphControl1->Size = System::Drawing::Size(13, 12);
+			this->zedGraphControl1->Size = System::Drawing::Size(453, 291);
 			this->zedGraphControl1->TabIndex = 0;
 			this->zedGraphControl1->Load += gcnew System::EventHandler(this, &MyForm::zedGraphControl1_Load);
 			// 
@@ -288,7 +288,7 @@ namespace Graph {
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(264, 554);
+			this->textBox1->Location = System::Drawing::Point(397, 575);
 			this->textBox1->Margin = System::Windows::Forms::Padding(5);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(78, 26);
@@ -337,7 +337,7 @@ namespace Graph {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(19, 590);
+			this->button2->Location = System::Drawing::Point(297, 520);
 			this->button2->Margin = System::Windows::Forms::Padding(5);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(236, 45);
@@ -515,23 +515,23 @@ namespace Graph {
 
 		}
 #pragma endregion
-	//private: 
-	//	double f1(double x){
-	//		return sin(x);
-	//	}
+	private:
+		double f1(double x) {
+			return sin(x);
+		}
 
-	//	double f2(double x) {
-	//		return sin(2 * x);
-	//	}
+		double f2(double x) {
+			return sin(2 * x);
+		}
 
 
 
-	private: System::Void startbutton_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void startbutton_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		//GraphPane^ panel = zedGraphControl1->GraphPane;
-		//panel->CurveList->Clear();
-		//PointPairList^ f1_list = gcnew ZedGraph::PointPairList();
-		//PointPairList^ f2_list = gcnew ZedGraph::PointPairList();
+		GraphPane^ panel = zedGraphControl1->GraphPane;
+		panel->CurveList->Clear();
+		PointPairList^ f1_list = gcnew ZedGraph::PointPairList();
+		PointPairList^ f2_list = gcnew ZedGraph::PointPairList();
 
 		// Интервал, где есть данные
 		//double xmin = Convert::ToDouble(textBox1->Text);
@@ -546,7 +546,7 @@ namespace Graph {
 		randvalarr.push_back(randval(0));
 
 		double sumofelements = 0; //summ of all elements
-		for (int i = 0; i < numofexp-1; i++) {
+		for (int i = 0; i < numofexp - 1; i++) {
 
 			double sum = 0; //correct answers
 			while (true) {
@@ -565,7 +565,7 @@ namespace Graph {
 			//fill the vector of random variables without repetitions
 
 			bool flag = false;
-			for (randval &j : randvalarr) {
+			for (randval& j : randvalarr) {
 				if (j.getval() == sum) {
 					j.incrementfrequency();
 					flag = true;
@@ -593,7 +593,7 @@ namespace Graph {
 			dataGridView1->Rows[k]->Cells[1]->Value = j.getval(); //value of a random variable (number of correct answers)
 			dataGridView1->Rows[k]->Cells[2]->Value = j.getfrequency(); //absolute frequency
 			dataGridView1->Rows[k]->Cells[3]->Value = j.getfrequency() / numofexp; //relative frequency
-			abscumfreq += j.getfrequency(); 
+			abscumfreq += j.getfrequency();
 			dataGridView1->Rows[k]->Cells[4]->Value = abscumfreq; //absolute cumulative frequency
 			dataGridView1->Rows[k]->Cells[5]->Value = abscumfreq / numofexp; //relative cumulative frequency
 			dataGridView1->Rows[k]->Cells[6]->Value = probability * pow((1 - probability), j.getval()); //theoretical probability
@@ -642,76 +642,89 @@ namespace Graph {
 		dataGridView2->Rows[0]->Cells[6]->Value = samplemedian; //sample median
 		dataGridView2->Rows[0]->Cells[7]->Value = allrandvalarr.back() - allrandvalarr.front(); //sample span
 
-		//double h = Convert::ToDouble(textBox3->Text);
+		//form an array of probability values
+
+		std::vector<double>probabilityarr;
+		for (randval j : randvalarr) {
+
+		}
+
+		double h = Convert::ToDouble(textBox3->Text);
 
 
-		//double xmin_limit = xmin - 0.1;
-		//double xmax_limit = xmax + 0.1;
-/*
-		double ymin_limit = -1.0;
-		double ymax_limit = 100.0;
-*/
+		double xmin_limit = 0;
+		double xmax_limit = randvalarr.back().getval() + 1;
+
+		double ymin_limit = 0;
+		double ymax_limit = 2;
+
+		double xmin = 0;
+		double xmax = randvalarr.back().getval();
+
 		// Список точек
-		//int i = 0;
+		int i = 0;
 		//dataGridView1->Rows->Clear();
-		//for (double x = xmin; x <= xmax; x += h)
-		//{
-		//	//Добавление на график
-		//	f1_list->Add(x, f1(x));
-		//	f2_list->Add(x, f2(x));
-		//	//Печать в таблицу
-		//	dataGridView1->Rows->Add();
-		//	dataGridView1->Rows[i]->Cells[0]->Value = x; 			
-		//	dataGridView1->Rows[i]->Cells[1]->Value = floor(f1(x) * 1000) / 1000;
-		//	dataGridView1->Rows[i]->Cells[2]->Value = floor(f2(x) * 1000) / 1000;
-		//	i++;
-		//}
-		//LineItem Curve1 = panel->AddCurve("F1(x)", f1_list, Color::Red,SymbolType::Plus);
-		//LineItem Curve2 = panel->AddCurve("F2(x)", f2_list, Color::Blue, SymbolType::None);
+		for (double x = xmin; x <= xmax; x += h)
+		{
+			//for (randval j : randvalarr) {
+			//	//Добавление на график
 
-		// Устанавливаем интересующий нас интервал по оси X
-		//panel->XAxis->Scale->Min = xmin_limit;
-		//panel->XAxis->Scale->Max = xmax_limit;
-/*
-		// Устанавливаем интересующий нас интервал по оси Y
-		panel->YAxis->Scale->Min = ymin_limit;
-		panel->YAxis->Scale->Max = ymax_limit;
-*/
-		// Вызываем метод AxisChange (), чтобы обновить данные об осях. 
-		// В противном случае на рисунке будет показана только часть графика, 
-		// которая умещается в интервалы по осям, установленные по умолчанию
-		//zedGraphControl1->AxisChange();
+			f1_list->Add(x, f1(x));
+			f2_list->Add(x, f2(x));
+			//Печать в таблицу
+			//dataGridView1->Rows->Add();
+			//dataGridView1->Rows[i]->Cells[0]->Value = x; 			
+			//dataGridView1->Rows[i]->Cells[1]->Value = floor(f1(x) * 1000) / 1000;
+			//	dataGridView1->Rows[i]->Cells[2]->Value = floor(f2(x) * 1000) / 1000;
+			//	i++;
+			//}
+			LineItem Curve1 = panel->AddCurve("F1(x)", f1_list, Color::Red, SymbolType::Plus);
+			LineItem Curve2 = panel->AddCurve("F2(x)", f2_list, Color::Blue, SymbolType::None);
+
+			// Устанавливаем интересующий нас интервал по оси X
+			panel->XAxis->Scale->Min = xmin_limit;
+			panel->XAxis->Scale->Max = xmax_limit;
+			/*
+					// Устанавливаем интересующий нас интервал по оси Y
+					panel->YAxis->Scale->Min = ymin_limit;
+					panel->YAxis->Scale->Max = ymax_limit;
+			*/
+			// Вызываем метод AxisChange (), чтобы обновить данные об осях. 
+			// В противном случае на рисунке будет показана только часть графика, 
+			// которая умещается в интервалы по осям, установленные по умолчанию
+			zedGraphControl1->AxisChange();
+			// Обновляем график
+			zedGraphControl1->Invalidate();
+
+		}
+	}
+	private: System::Void zedGraphControl1_Load(System::Object^ sender, System::EventArgs^ e) {
+	}
+
+
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		GraphPane^ panel = zedGraphControl1->GraphPane;
+		double xmin = Convert::ToDouble(textBox5->Text);
+		double xmax = Convert::ToDouble(numofexpbox->Text);
+		//Устанавливаем интересующий нас интервал по оси X
+		panel->XAxis->Scale->Min = xmin;
+		panel->XAxis->Scale->Max = xmax;
+
+		//Вызываем метод AxisChange (), чтобы обновить данные об осях. 
+		//В противном случае на рисунке будет показана только часть графика, 
+	   // которая умещается в интервалы по осям, установленные по умолчанию
+		zedGraphControl1->AxisChange();
 		// Обновляем график
-		//zedGraphControl1->Invalidate();
+		zedGraphControl1->Invalidate();
 
 	}
-	private: System::Void zedGraphControl1_Load(System::Object^  sender, System::EventArgs^  e) {
+
+	private: System::Void numofexpbox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	}
-
-
-private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-
-	//GraphPane^ panel = zedGraphControl1->GraphPane;
-	//double xmin = Convert::ToDouble(textBox5->Text);
-	//double xmax = Convert::ToDouble(numofexpbox->Text);
-	//// Устанавливаем интересующий нас интервал по оси X
-	//panel->XAxis->Scale->Min = xmin;
-	//panel->XAxis->Scale->Max = xmax;
-
-	//// Вызываем метод AxisChange (), чтобы обновить данные об осях. 
-	//// В противном случае на рисунке будет показана только часть графика, 
-	//// которая умещается в интервалы по осям, установленные по умолчанию
-	//zedGraphControl1->AxisChange();
-	//// Обновляем график
-	//zedGraphControl1->Invalidate();
-
-}
-
-private: System::Void numofexpbox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void probbox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-}
-};
-}
+	private: System::Void probbox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	}
+	private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+	}
+	}
+	; }
