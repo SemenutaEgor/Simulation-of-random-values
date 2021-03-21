@@ -48,14 +48,14 @@ namespace Graph {
 
 
 
-	private: System::Windows::Forms::Label^ label1;
+
 	private: System::Windows::Forms::TextBox^ textBox1;
 	private: System::Windows::Forms::Label^ problabel;
 	private: System::Windows::Forms::TextBox^ probbox;
 
 
 
-	private: System::Windows::Forms::Label^ label3;
+
 	private: System::Windows::Forms::TextBox^ textBox3;
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::TextBox^ numofexpbox;
@@ -65,7 +65,7 @@ namespace Graph {
 
 
 	private: System::Windows::Forms::TextBox^ textBox5;
-	private: System::Windows::Forms::Label^ label5;
+
 	private: System::Windows::Forms::PictureBox^ task14;
 
 
@@ -96,7 +96,29 @@ namespace Graph {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ theoreticalprobability;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column1;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column2;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ maxdisper;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ maxdiffofprob;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -174,17 +196,14 @@ namespace Graph {
 			this->zedGraphControl1 = (gcnew ZedGraph::ZedGraphControl());
 			this->startbutton = (gcnew System::Windows::Forms::Button());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->problabel = (gcnew System::Windows::Forms::Label());
 			this->probbox = (gcnew System::Windows::Forms::TextBox());
-			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->numofexpbox = (gcnew System::Windows::Forms::TextBox());
 			this->numofexplabel = (gcnew System::Windows::Forms::Label());
 			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
-			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->task14 = (gcnew System::Windows::Forms::PictureBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
@@ -205,6 +224,7 @@ namespace Graph {
 			this->theoreticalprobability = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Column1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Column2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->maxdisper = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->maxdiffofprob = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->task14))->BeginInit();
@@ -213,7 +233,7 @@ namespace Graph {
 			// 
 			// zedGraphControl1
 			// 
-			this->zedGraphControl1->Location = System::Drawing::Point(780, 310);
+			this->zedGraphControl1->Location = System::Drawing::Point(752, 301);
 			this->zedGraphControl1->Margin = System::Windows::Forms::Padding(6);
 			this->zedGraphControl1->Name = L"zedGraphControl1";
 			this->zedGraphControl1->ScrollGrace = 0;
@@ -223,7 +243,7 @@ namespace Graph {
 			this->zedGraphControl1->ScrollMinX = 0;
 			this->zedGraphControl1->ScrollMinY = 0;
 			this->zedGraphControl1->ScrollMinY2 = 0;
-			this->zedGraphControl1->Size = System::Drawing::Size(453, 291);
+			this->zedGraphControl1->Size = System::Drawing::Size(707, 321);
 			this->zedGraphControl1->TabIndex = 0;
 			this->zedGraphControl1->Load += gcnew System::EventHandler(this, &MyForm::zedGraphControl1_Load);
 			// 
@@ -243,10 +263,10 @@ namespace Graph {
 			// dataGridView1
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(10) {
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(11) {
 				this->number,
 					this->Y_i, this->n_i, this->n_idivn, this->Sigmai, this->Sigmain, this->theoreticalprobability, this->Column1, this->Column2,
-					this->maxdiffofprob
+					this->maxdisper, this->maxdiffofprob
 			});
 			this->dataGridView1->Location = System::Drawing::Point(10, 186);
 			this->dataGridView1->Margin = System::Windows::Forms::Padding(5);
@@ -257,19 +277,9 @@ namespace Graph {
 			this->dataGridView1->TabIndex = 2;
 			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView1_CellContentClick);
 			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(240, 557);
-			this->label1->Margin = System::Windows::Forms::Padding(5, 0, 5, 0);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(18, 20);
-			this->label1->TabIndex = 3;
-			this->label1->Text = L"a";
-			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(397, 575);
+			this->textBox1->Location = System::Drawing::Point(260, 626);
 			this->textBox1->Margin = System::Windows::Forms::Padding(5);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(78, 26);
@@ -297,19 +307,9 @@ namespace Graph {
 			this->probbox->TabIndex = 6;
 			this->probbox->TextChanged += gcnew System::EventHandler(this, &MyForm::probbox_TextChanged);
 			// 
-			// label3
-			// 
-			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(103, 545);
-			this->label3->Margin = System::Windows::Forms::Padding(5, 0, 5, 0);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(18, 20);
-			this->label3->TabIndex = 7;
-			this->label3->Text = L"h";
-			// 
 			// textBox3
 			// 
-			this->textBox3->Location = System::Drawing::Point(131, 554);
+			this->textBox3->Location = System::Drawing::Point(359, 609);
 			this->textBox3->Margin = System::Windows::Forms::Padding(5);
 			this->textBox3->Name = L"textBox3";
 			this->textBox3->Size = System::Drawing::Size(99, 26);
@@ -318,7 +318,7 @@ namespace Graph {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(297, 520);
+			this->button2->Location = System::Drawing::Point(14, 590);
 			this->button2->Margin = System::Windows::Forms::Padding(5);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(236, 45);
@@ -350,22 +350,12 @@ namespace Graph {
 			// 
 			// textBox5
 			// 
-			this->textBox5->Location = System::Drawing::Point(283, 596);
+			this->textBox5->Location = System::Drawing::Point(260, 590);
 			this->textBox5->Margin = System::Windows::Forms::Padding(5);
 			this->textBox5->Name = L"textBox5";
 			this->textBox5->Size = System::Drawing::Size(78, 26);
 			this->textBox5->TabIndex = 11;
 			this->textBox5->Text = L"0";
-			// 
-			// label5
-			// 
-			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(279, 602);
-			this->label5->Margin = System::Windows::Forms::Padding(5, 0, 5, 0);
-			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(18, 20);
-			this->label5->TabIndex = 10;
-			this->label5->Text = L"a";
 			// 
 			// task14
 			// 
@@ -527,6 +517,13 @@ namespace Graph {
 			this->Column2->Name = L"Column2";
 			this->Column2->Width = 125;
 			// 
+			// maxdisper
+			// 
+			this->maxdisper->HeaderText = L"max|F(x)выб. - F(x)теор.|";
+			this->maxdisper->MinimumWidth = 6;
+			this->maxdisper->Name = L"maxdisper";
+			this->maxdisper->Width = 125;
+			// 
 			// maxdiffofprob
 			// 
 			this->maxdiffofprob->HeaderText = L"|n_i/n - P(y_i)|";
@@ -544,14 +541,11 @@ namespace Graph {
 			this->Controls->Add(this->numofexpbox);
 			this->Controls->Add(this->numofexplabel);
 			this->Controls->Add(this->textBox5);
-			this->Controls->Add(this->label5);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->textBox3);
-			this->Controls->Add(this->label3);
 			this->Controls->Add(this->probbox);
 			this->Controls->Add(this->problabel);
 			this->Controls->Add(this->textBox1);
-			this->Controls->Add(this->label1);
 			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->startbutton);
 			this->Controls->Add(this->task14);
@@ -667,8 +661,23 @@ namespace Graph {
 			k++;
 		}
 
+		//calculate the measure of discrepancy between theoretical and sample distribution functions
+
+		double maxdisper = 0;
+		double tempdisper = 0;
+		for (randval& j : randvalarr) {
+			tempdisper = abs(j.getrelcumfreq() - j.getprob());
+			if (tempdisper > maxdisper) {
+				maxdisper = tempdisper;
+			}
+		}
+
+		dataGridView1->Rows[0]->Cells[9]->Value = maxdisper;
+
+		//deviation of the estimated probability from the theoretical
+
 		double maxdiffofprob = *std::max_element(diffofprobarr.begin(), diffofprobarr.end());
-		dataGridView1->Rows[0]->Cells[9]->Value = maxdiffofprob;
+		dataGridView1->Rows[0]->Cells[10]->Value = maxdiffofprob;
 		//calculate the sample variance
 
 		double samplemean = sumofelements / numofexp;//sample mean
