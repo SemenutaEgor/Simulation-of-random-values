@@ -94,6 +94,14 @@ namespace Graph {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Sigmai;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Sigmain;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ theoreticalprobability;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ maxdiffofprob;
+
+
+
+
+
+
+
 
 
 
@@ -129,6 +137,14 @@ namespace Graph {
 			this->zedGraphControl1 = (gcnew ZedGraph::ZedGraphControl());
 			this->startbutton = (gcnew System::Windows::Forms::Button());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Y_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->n_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->n_idivn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Sigmai = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Sigmain = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->theoreticalprobability = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->maxdiffofprob = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->problabel = (gcnew System::Windows::Forms::Label());
@@ -151,13 +167,6 @@ namespace Graph {
 			this->varminussamplevir = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->samplemedian = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->samplespan = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Y_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->n_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->n_idivn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Sigmai = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Sigmain = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->theoreticalprobability = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->task14))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
@@ -195,18 +204,77 @@ namespace Graph {
 			// dataGridView1
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(7) {
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(8) {
 				this->number,
-					this->Y_i, this->n_i, this->n_idivn, this->Sigmai, this->Sigmain, this->theoreticalprobability
+					this->Y_i, this->n_i, this->n_idivn, this->Sigmai, this->Sigmain, this->theoreticalprobability, this->maxdiffofprob
 			});
-			this->dataGridView1->Location = System::Drawing::Point(-1, 200);
+			this->dataGridView1->Location = System::Drawing::Point(10, 186);
 			this->dataGridView1->Margin = System::Windows::Forms::Padding(5);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersVisible = false;
 			this->dataGridView1->RowHeadersWidth = 51;
-			this->dataGridView1->Size = System::Drawing::Size(503, 190);
+			this->dataGridView1->Size = System::Drawing::Size(707, 190);
 			this->dataGridView1->TabIndex = 2;
 			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView1_CellContentClick);
+			// 
+			// number
+			// 
+			this->number->HeaderText = L"¹";
+			this->number->MinimumWidth = 6;
+			this->number->Name = L"number";
+			this->number->Width = 125;
+			// 
+			// Y_i
+			// 
+			this->Y_i->HeaderText = L"y_i";
+			this->Y_i->MinimumWidth = 6;
+			this->Y_i->Name = L"Y_i";
+			this->Y_i->ReadOnly = true;
+			this->Y_i->Width = 135;
+			// 
+			// n_i
+			// 
+			this->n_i->HeaderText = L"n_i";
+			this->n_i->MinimumWidth = 6;
+			this->n_i->Name = L"n_i";
+			this->n_i->ReadOnly = true;
+			this->n_i->Width = 135;
+			// 
+			// n_idivn
+			// 
+			this->n_idivn->HeaderText = L"n_i/n";
+			this->n_idivn->MinimumWidth = 6;
+			this->n_idivn->Name = L"n_idivn";
+			this->n_idivn->ReadOnly = true;
+			this->n_idivn->Width = 135;
+			// 
+			// Sigmai
+			// 
+			this->Sigmai->HeaderText = L"Sigma(i)";
+			this->Sigmai->MinimumWidth = 6;
+			this->Sigmai->Name = L"Sigmai";
+			this->Sigmai->Width = 125;
+			// 
+			// Sigmain
+			// 
+			this->Sigmain->HeaderText = L"Sigma(i)/n";
+			this->Sigmain->MinimumWidth = 6;
+			this->Sigmain->Name = L"Sigmain";
+			this->Sigmain->Width = 125;
+			// 
+			// theoreticalprobability
+			// 
+			this->theoreticalprobability->HeaderText = L"P(y_i)";
+			this->theoreticalprobability->MinimumWidth = 6;
+			this->theoreticalprobability->Name = L"theoreticalprobability";
+			this->theoreticalprobability->Width = 125;
+			// 
+			// maxdiffofprob
+			// 
+			this->maxdiffofprob->HeaderText = L"|n_i/n - P(y_i)|";
+			this->maxdiffofprob->MinimumWidth = 6;
+			this->maxdiffofprob->Name = L"maxdiffofprob";
+			this->maxdiffofprob->Width = 150;
 			// 
 			// label1
 			// 
@@ -321,7 +389,7 @@ namespace Graph {
 			// task14
 			// 
 			this->task14->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"task14.Image")));
-			this->task14->Location = System::Drawing::Point(-1, 0);
+			this->task14->Location = System::Drawing::Point(10, 7);
 			this->task14->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
 			this->task14->Name = L"task14";
 			this->task14->Size = System::Drawing::Size(999, 171);
@@ -345,12 +413,12 @@ namespace Graph {
 					this->dataGridViewTextBoxColumn3, this->dataGridViewTextBoxColumn4, this->dataGridViewTextBoxColumn5, this->dataGridViewTextBoxColumn6,
 					this->varminussamplevir, this->samplemedian, this->samplespan
 			});
-			this->dataGridView2->Location = System::Drawing::Point(557, 200);
+			this->dataGridView2->Location = System::Drawing::Point(752, 186);
 			this->dataGridView2->Margin = System::Windows::Forms::Padding(5);
 			this->dataGridView2->Name = L"dataGridView2";
 			this->dataGridView2->RowHeadersVisible = false;
 			this->dataGridView2->RowHeadersWidth = 51;
-			this->dataGridView2->Size = System::Drawing::Size(902, 104);
+			this->dataGridView2->Size = System::Drawing::Size(707, 104);
 			this->dataGridView2->TabIndex = 16;
 			// 
 			// dataGridViewTextBoxColumn2
@@ -411,58 +479,6 @@ namespace Graph {
 			this->samplespan->MinimumWidth = 6;
 			this->samplespan->Name = L"samplespan";
 			this->samplespan->Width = 125;
-			// 
-			// number
-			// 
-			this->number->HeaderText = L"¹";
-			this->number->MinimumWidth = 6;
-			this->number->Name = L"number";
-			this->number->Width = 125;
-			// 
-			// Y_i
-			// 
-			this->Y_i->HeaderText = L"y_i";
-			this->Y_i->MinimumWidth = 6;
-			this->Y_i->Name = L"Y_i";
-			this->Y_i->ReadOnly = true;
-			this->Y_i->Width = 135;
-			// 
-			// n_i
-			// 
-			this->n_i->HeaderText = L"n_i";
-			this->n_i->MinimumWidth = 6;
-			this->n_i->Name = L"n_i";
-			this->n_i->ReadOnly = true;
-			this->n_i->Width = 135;
-			// 
-			// n_idivn
-			// 
-			this->n_idivn->HeaderText = L"n_i/n";
-			this->n_idivn->MinimumWidth = 6;
-			this->n_idivn->Name = L"n_idivn";
-			this->n_idivn->ReadOnly = true;
-			this->n_idivn->Width = 135;
-			// 
-			// Sigmai
-			// 
-			this->Sigmai->HeaderText = L"Sigma(i)";
-			this->Sigmai->MinimumWidth = 6;
-			this->Sigmai->Name = L"Sigmai";
-			this->Sigmai->Width = 125;
-			// 
-			// Sigmain
-			// 
-			this->Sigmain->HeaderText = L"Sigma(i)/n";
-			this->Sigmain->MinimumWidth = 6;
-			this->Sigmain->Name = L"Sigmain";
-			this->Sigmain->Width = 125;
-			// 
-			// theoreticalprobability
-			// 
-			this->theoreticalprobability->HeaderText = L"P(y_i)";
-			this->theoreticalprobability->MinimumWidth = 6;
-			this->theoreticalprobability->Name = L"theoreticalprobability";
-			this->theoreticalprobability->Width = 125;
 			// 
 			// MyForm
 			// 
@@ -568,6 +584,9 @@ namespace Graph {
 		int k = 0;
 		dataGridView1->Rows->Clear();
 		double abscumfreq = 0;
+
+		std::vector<double> diffofprobarr; //vector for differences of probabilities
+
 		for (randval j : randvalarr) {
 			dataGridView1->Rows->Add();
 			dataGridView1->Rows[k]->Cells[0]->Value = k; //number
@@ -578,9 +597,14 @@ namespace Graph {
 			dataGridView1->Rows[k]->Cells[4]->Value = abscumfreq; //absolute cumulative frequency
 			dataGridView1->Rows[k]->Cells[5]->Value = abscumfreq / numofexp; //relative cumulative frequency
 			dataGridView1->Rows[k]->Cells[6]->Value = probability * pow((1 - probability), j.getval()); //theoretical probability
+
+			diffofprobarr.push_back(abs(j.getfrequency() / numofexp - probability * pow((1 - probability), j.getval())));
+
 			k++;
 		}
 
+		double maxdiffofprob = *std::max_element(diffofprobarr.begin(), diffofprobarr.end());
+		dataGridView1->Rows[0]->Cells[7]->Value = maxdiffofprob;
 		//calculate the sample variance
 
 		double samplemean = sumofelements / numofexp;//sample mean
