@@ -648,7 +648,7 @@ namespace Graph {
 
 		std::vector<double> diffofprobarr; //vector for differences of probabilities
 
-		for (randval j : randvalarr) {
+		for (randval& j : randvalarr) {
 			dataGridView1->Rows->Add();
 			dataGridView1->Rows[k]->Cells[0]->Value = k; //number
 			dataGridView1->Rows[k]->Cells[1]->Value = j.getval(); //value of a random variable (number of correct answers)
@@ -725,13 +725,17 @@ namespace Graph {
 	    //Добавление на график
 
 		double prevprob = 0;
+		double prevrelcumfreq = 0;
 		f1_list->Add(randvalarr[0].getval(), randvalarr[0].getprob());
 		prevprob = randvalarr[0].getprob();
+		f2_list->Add(randvalarr[0].getval(), 0);
 		for (randval j : randvalarr) {
 			f1_list->Add(j.getval(), prevprob);
 			f1_list->Add(j.getval(), j.getprob());
 			prevprob = j.getprob();
-			f2_list->Add(j.getval(), j.getprob());
+			f2_list->Add(j.getval(), prevrelcumfreq);
+			f2_list->Add(j.getval(), j.getrelcumfreq());
+			prevrelcumfreq = j.getrelcumfreq();
 			//Печать в таблицу
 			//dataGridView1->Rows->Add();
 			//dataGridView1->Rows[i]->Cells[0]->Value = x; 			
