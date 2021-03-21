@@ -65,11 +65,17 @@ namespace Graph {
 	private: System::Windows::Forms::TextBox^  textBox5;
 	private: System::Windows::Forms::Label^  label5;
 	private: System::Windows::Forms::PictureBox^ task14;
+
+
+
+
+	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ number;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Y_i;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ n_i;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ n_idivn;
-	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Sigmai;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Sigmain;
 
 
 
@@ -117,11 +123,13 @@ namespace Graph {
 			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->task14 = (gcnew System::Windows::Forms::PictureBox());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Y_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->n_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->n_idivn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->Sigmai = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Sigmain = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->task14))->BeginInit();
 			this->SuspendLayout();
@@ -158,11 +166,11 @@ namespace Graph {
 			// dataGridView1
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(6) {
 				this->number,
-					this->Y_i, this->n_i, this->n_idivn
+					this->Y_i, this->n_i, this->n_idivn, this->Sigmai, this->Sigmain
 			});
-			this->dataGridView1->Location = System::Drawing::Point(476, 188);
+			this->dataGridView1->Location = System::Drawing::Point(483, 188);
 			this->dataGridView1->Margin = System::Windows::Forms::Padding(5);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersVisible = false;
@@ -232,7 +240,7 @@ namespace Graph {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(19, 333);
+			this->button2->Location = System::Drawing::Point(201, 597);
 			this->button2->Margin = System::Windows::Forms::Padding(5);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(236, 45);
@@ -291,11 +299,21 @@ namespace Graph {
 			this->task14->TabIndex = 14;
 			this->task14->TabStop = false;
 			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(197, 224);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(145, 20);
+			this->label2->TabIndex = 15;
+			this->label2->Text = L"(через запятую)";
+			// 
 			// number
 			// 
 			this->number->HeaderText = L"№";
 			this->number->MinimumWidth = 6;
 			this->number->Name = L"number";
+			this->number->Width = 125;
 			// 
 			// Y_i
 			// 
@@ -321,14 +339,19 @@ namespace Graph {
 			this->n_idivn->ReadOnly = true;
 			this->n_idivn->Width = 135;
 			// 
-			// label2
+			// Sigmai
 			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(197, 224);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(145, 20);
-			this->label2->TabIndex = 15;
-			this->label2->Text = L"(через запятую)";
+			this->Sigmai->HeaderText = L"Sigma(i)";
+			this->Sigmai->MinimumWidth = 6;
+			this->Sigmai->Name = L"Sigmai";
+			this->Sigmai->Width = 125;
+			// 
+			// Sigmain
+			// 
+			this->Sigmain->HeaderText = L"Sigma(i)/n";
+			this->Sigmain->MinimumWidth = 6;
+			this->Sigmain->Name = L"Sigmain";
+			this->Sigmain->Width = 125;
 			// 
 			// MyForm
 			// 
@@ -420,14 +443,19 @@ namespace Graph {
 
 		//Печать в таблицу
 		int k = 0;
+		dataGridView1->Rows->Clear();
+		double abscumfreq = 0;
 		for (randval j : randvalarr) {
 			dataGridView1->Rows->Add();
 			dataGridView1->Rows[k]->Cells[0]->Value = k;
 			dataGridView1->Rows[k]->Cells[1]->Value = j.getval();
 			dataGridView1->Rows[k]->Cells[2]->Value = j.getfrequency();
 			dataGridView1->Rows[k]->Cells[3]->Value = j.getfrequency() / numofexp;
+			abscumfreq += j.getfrequency();
+			dataGridView1->Rows[k]->Cells[4]->Value = abscumfreq;
 			k++;
 		}
+
 
 
 		//double h = Convert::ToDouble(textBox3->Text);
