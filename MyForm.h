@@ -414,7 +414,7 @@ namespace Graph {
 		std::vector<randval> randvalarr;
 		randvalarr.push_back(randval(0));
 
-		for (int i = 0; i < numofexp; i++) {
+		for (int i = 0; i < numofexp-1; i++) {
 
 			double sum = 0;
 			while (true) {
@@ -453,6 +453,7 @@ namespace Graph {
 			dataGridView1->Rows[k]->Cells[3]->Value = j.getfrequency() / numofexp;
 			abscumfreq += j.getfrequency();
 			dataGridView1->Rows[k]->Cells[4]->Value = abscumfreq;
+			dataGridView1->Rows[k]->Cells[5]->Value = abscumfreq / numofexp;
 			k++;
 		}
 
