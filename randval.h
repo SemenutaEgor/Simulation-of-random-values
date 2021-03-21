@@ -71,3 +71,7 @@ bool operator<= (const randval& d1, const randval& d2)
 bool comp(randval a, randval b) {
 	return a < b;
 }
+
+bool comp2(double a, double b) {
+	return a < b;
+}

@@ -3,6 +3,8 @@
 #include <random>
 #include <vector>
 #include "randval.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 namespace Graph {
 
@@ -76,6 +78,15 @@ namespace Graph {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ n_idivn;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Sigmai;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Sigmain;
+	private: System::Windows::Forms::DataGridView^ dataGridView2;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn2;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn3;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn4;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn5;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn6;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ varminussamplevir;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ samplemedian;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ samplespan;
 
 
 
@@ -111,6 +122,12 @@ namespace Graph {
 			this->zedGraphControl1 = (gcnew ZedGraph::ZedGraphControl());
 			this->startbutton = (gcnew System::Windows::Forms::Button());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Y_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->n_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->n_idivn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Sigmai = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Sigmain = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->problabel = (gcnew System::Windows::Forms::Label());
@@ -124,14 +141,18 @@ namespace Graph {
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->task14 = (gcnew System::Windows::Forms::PictureBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Y_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->n_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->n_idivn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Sigmai = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Sigmain = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
+			this->dataGridViewTextBoxColumn2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridViewTextBoxColumn3 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridViewTextBoxColumn4 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridViewTextBoxColumn5 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridViewTextBoxColumn6 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->varminussamplevir = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->samplemedian = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->samplespan = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->task14))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// zedGraphControl1
@@ -154,7 +175,7 @@ namespace Graph {
 			// 
 			this->startbutton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->startbutton->Location = System::Drawing::Point(19, 269);
+			this->startbutton->Location = System::Drawing::Point(1116, 102);
 			this->startbutton->Margin = System::Windows::Forms::Padding(5);
 			this->startbutton->Name = L"startbutton";
 			this->startbutton->Size = System::Drawing::Size(236, 45);
@@ -170,7 +191,7 @@ namespace Graph {
 				this->number,
 					this->Y_i, this->n_i, this->n_idivn, this->Sigmai, this->Sigmain
 			});
-			this->dataGridView1->Location = System::Drawing::Point(483, 188);
+			this->dataGridView1->Location = System::Drawing::Point(-1, 200);
 			this->dataGridView1->Margin = System::Windows::Forms::Padding(5);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersVisible = false;
@@ -178,135 +199,6 @@ namespace Graph {
 			this->dataGridView1->Size = System::Drawing::Size(503, 190);
 			this->dataGridView1->TabIndex = 2;
 			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView1_CellContentClick);
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(782, 534);
-			this->label1->Margin = System::Windows::Forms::Padding(5, 0, 5, 0);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(18, 20);
-			this->label1->TabIndex = 3;
-			this->label1->Text = L"a";
-			// 
-			// textBox1
-			// 
-			this->textBox1->Location = System::Drawing::Point(829, 528);
-			this->textBox1->Margin = System::Windows::Forms::Padding(5);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(78, 26);
-			this->textBox1->TabIndex = 4;
-			this->textBox1->Text = L"0";
-			// 
-			// problabel
-			// 
-			this->problabel->AutoSize = true;
-			this->problabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->problabel->Location = System::Drawing::Point(14, 217);
-			this->problabel->Margin = System::Windows::Forms::Padding(5, 0, 5, 0);
-			this->problabel->Name = L"problabel";
-			this->problabel->Size = System::Drawing::Size(189, 29);
-			this->problabel->TabIndex = 5;
-			this->problabel->Text = L"Вероятность p:";
-			// 
-			// probbox
-			// 
-			this->probbox->Location = System::Drawing::Point(359, 228);
-			this->probbox->Margin = System::Windows::Forms::Padding(5);
-			this->probbox->Name = L"probbox";
-			this->probbox->Size = System::Drawing::Size(107, 26);
-			this->probbox->TabIndex = 6;
-			this->probbox->TextChanged += gcnew System::EventHandler(this, &MyForm::probbox_TextChanged);
-			// 
-			// label3
-			// 
-			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(479, 612);
-			this->label3->Margin = System::Windows::Forms::Padding(5, 0, 5, 0);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(18, 20);
-			this->label3->TabIndex = 7;
-			this->label3->Text = L"h";
-			// 
-			// textBox3
-			// 
-			this->textBox3->Location = System::Drawing::Point(510, 606);
-			this->textBox3->Margin = System::Windows::Forms::Padding(5);
-			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(99, 26);
-			this->textBox3->TabIndex = 8;
-			this->textBox3->Text = L"0,1";
-			// 
-			// button2
-			// 
-			this->button2->Location = System::Drawing::Point(201, 597);
-			this->button2->Margin = System::Windows::Forms::Padding(5);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(236, 45);
-			this->button2->TabIndex = 9;
-			this->button2->Text = L"Zoom";
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
-			// 
-			// numofexpbox
-			// 
-			this->numofexpbox->Location = System::Drawing::Point(359, 192);
-			this->numofexpbox->Margin = System::Windows::Forms::Padding(5);
-			this->numofexpbox->Name = L"numofexpbox";
-			this->numofexpbox->Size = System::Drawing::Size(107, 26);
-			this->numofexpbox->TabIndex = 13;
-			this->numofexpbox->TextChanged += gcnew System::EventHandler(this, &MyForm::numofexpbox_TextChanged);
-			// 
-			// numofexplabel
-			// 
-			this->numofexplabel->AutoSize = true;
-			this->numofexplabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->numofexplabel->Location = System::Drawing::Point(14, 188);
-			this->numofexplabel->Margin = System::Windows::Forms::Padding(5, 0, 5, 0);
-			this->numofexplabel->Name = L"numofexplabel";
-			this->numofexplabel->Size = System::Drawing::Size(345, 29);
-			this->numofexplabel->TabIndex = 12;
-			this->numofexplabel->Text = L"Количество экспериментов:";
-			// 
-			// textBox5
-			// 
-			this->textBox5->Location = System::Drawing::Point(853, 584);
-			this->textBox5->Margin = System::Windows::Forms::Padding(5);
-			this->textBox5->Name = L"textBox5";
-			this->textBox5->Size = System::Drawing::Size(78, 26);
-			this->textBox5->TabIndex = 11;
-			this->textBox5->Text = L"0";
-			// 
-			// label5
-			// 
-			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(825, 590);
-			this->label5->Margin = System::Windows::Forms::Padding(5, 0, 5, 0);
-			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(18, 20);
-			this->label5->TabIndex = 10;
-			this->label5->Text = L"a";
-			// 
-			// task14
-			// 
-			this->task14->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"task14.Image")));
-			this->task14->Location = System::Drawing::Point(-1, 0);
-			this->task14->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
-			this->task14->Name = L"task14";
-			this->task14->Size = System::Drawing::Size(999, 171);
-			this->task14->TabIndex = 14;
-			this->task14->TabStop = false;
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(197, 224);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(145, 20);
-			this->label2->TabIndex = 15;
-			this->label2->Text = L"(через запятую)";
 			// 
 			// number
 			// 
@@ -353,11 +245,210 @@ namespace Graph {
 			this->Sigmain->Name = L"Sigmain";
 			this->Sigmain->Width = 125;
 			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(240, 557);
+			this->label1->Margin = System::Windows::Forms::Padding(5, 0, 5, 0);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(18, 20);
+			this->label1->TabIndex = 3;
+			this->label1->Text = L"a";
+			// 
+			// textBox1
+			// 
+			this->textBox1->Location = System::Drawing::Point(264, 554);
+			this->textBox1->Margin = System::Windows::Forms::Padding(5);
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(78, 26);
+			this->textBox1->TabIndex = 4;
+			this->textBox1->Text = L"0";
+			// 
+			// problabel
+			// 
+			this->problabel->AutoSize = true;
+			this->problabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->problabel->Location = System::Drawing::Point(1007, 38);
+			this->problabel->Margin = System::Windows::Forms::Padding(5, 0, 5, 0);
+			this->problabel->Name = L"problabel";
+			this->problabel->Size = System::Drawing::Size(189, 29);
+			this->problabel->TabIndex = 5;
+			this->problabel->Text = L"Вероятность p:";
+			// 
+			// probbox
+			// 
+			this->probbox->Location = System::Drawing::Point(1352, 47);
+			this->probbox->Margin = System::Windows::Forms::Padding(5);
+			this->probbox->Name = L"probbox";
+			this->probbox->Size = System::Drawing::Size(107, 26);
+			this->probbox->TabIndex = 6;
+			this->probbox->TextChanged += gcnew System::EventHandler(this, &MyForm::probbox_TextChanged);
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Location = System::Drawing::Point(103, 545);
+			this->label3->Margin = System::Windows::Forms::Padding(5, 0, 5, 0);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(18, 20);
+			this->label3->TabIndex = 7;
+			this->label3->Text = L"h";
+			// 
+			// textBox3
+			// 
+			this->textBox3->Location = System::Drawing::Point(131, 554);
+			this->textBox3->Margin = System::Windows::Forms::Padding(5);
+			this->textBox3->Name = L"textBox3";
+			this->textBox3->Size = System::Drawing::Size(99, 26);
+			this->textBox3->TabIndex = 8;
+			this->textBox3->Text = L"0,1";
+			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(19, 590);
+			this->button2->Margin = System::Windows::Forms::Padding(5);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(236, 45);
+			this->button2->TabIndex = 9;
+			this->button2->Text = L"Zoom";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
+			// 
+			// numofexpbox
+			// 
+			this->numofexpbox->Location = System::Drawing::Point(1352, 9);
+			this->numofexpbox->Margin = System::Windows::Forms::Padding(5);
+			this->numofexpbox->Name = L"numofexpbox";
+			this->numofexpbox->Size = System::Drawing::Size(107, 26);
+			this->numofexpbox->TabIndex = 13;
+			this->numofexpbox->TextChanged += gcnew System::EventHandler(this, &MyForm::numofexpbox_TextChanged);
+			// 
+			// numofexplabel
+			// 
+			this->numofexplabel->AutoSize = true;
+			this->numofexplabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->numofexplabel->Location = System::Drawing::Point(1007, 9);
+			this->numofexplabel->Margin = System::Windows::Forms::Padding(5, 0, 5, 0);
+			this->numofexplabel->Name = L"numofexplabel";
+			this->numofexplabel->Size = System::Drawing::Size(345, 29);
+			this->numofexplabel->TabIndex = 12;
+			this->numofexplabel->Text = L"Количество экспериментов:";
+			// 
+			// textBox5
+			// 
+			this->textBox5->Location = System::Drawing::Point(283, 596);
+			this->textBox5->Margin = System::Windows::Forms::Padding(5);
+			this->textBox5->Name = L"textBox5";
+			this->textBox5->Size = System::Drawing::Size(78, 26);
+			this->textBox5->TabIndex = 11;
+			this->textBox5->Text = L"0";
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Location = System::Drawing::Point(279, 602);
+			this->label5->Margin = System::Windows::Forms::Padding(5, 0, 5, 0);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(18, 20);
+			this->label5->TabIndex = 10;
+			this->label5->Text = L"a";
+			// 
+			// task14
+			// 
+			this->task14->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"task14.Image")));
+			this->task14->Location = System::Drawing::Point(-1, 0);
+			this->task14->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
+			this->task14->Name = L"task14";
+			this->task14->Size = System::Drawing::Size(999, 171);
+			this->task14->TabIndex = 14;
+			this->task14->TabStop = false;
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(1190, 47);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(145, 20);
+			this->label2->TabIndex = 15;
+			this->label2->Text = L"(через запятую)";
+			// 
+			// dataGridView2
+			// 
+			this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView2->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(8) {
+				this->dataGridViewTextBoxColumn2,
+					this->dataGridViewTextBoxColumn3, this->dataGridViewTextBoxColumn4, this->dataGridViewTextBoxColumn5, this->dataGridViewTextBoxColumn6,
+					this->varminussamplevir, this->samplemedian, this->samplespan
+			});
+			this->dataGridView2->Location = System::Drawing::Point(557, 200);
+			this->dataGridView2->Margin = System::Windows::Forms::Padding(5);
+			this->dataGridView2->Name = L"dataGridView2";
+			this->dataGridView2->RowHeadersVisible = false;
+			this->dataGridView2->RowHeadersWidth = 51;
+			this->dataGridView2->Size = System::Drawing::Size(902, 104);
+			this->dataGridView2->TabIndex = 16;
+			// 
+			// dataGridViewTextBoxColumn2
+			// 
+			this->dataGridViewTextBoxColumn2->HeaderText = L"En";
+			this->dataGridViewTextBoxColumn2->MinimumWidth = 6;
+			this->dataGridViewTextBoxColumn2->Name = L"dataGridViewTextBoxColumn2";
+			this->dataGridViewTextBoxColumn2->ReadOnly = true;
+			// 
+			// dataGridViewTextBoxColumn3
+			// 
+			this->dataGridViewTextBoxColumn3->HeaderText = L"Xвыб.ср.";
+			this->dataGridViewTextBoxColumn3->MinimumWidth = 6;
+			this->dataGridViewTextBoxColumn3->Name = L"dataGridViewTextBoxColumn3";
+			this->dataGridViewTextBoxColumn3->ReadOnly = true;
+			// 
+			// dataGridViewTextBoxColumn4
+			// 
+			this->dataGridViewTextBoxColumn4->HeaderText = L"|En - Xвыб.ср.|";
+			this->dataGridViewTextBoxColumn4->MinimumWidth = 6;
+			this->dataGridViewTextBoxColumn4->Name = L"dataGridViewTextBoxColumn4";
+			this->dataGridViewTextBoxColumn4->ReadOnly = true;
+			this->dataGridViewTextBoxColumn4->Width = 150;
+			// 
+			// dataGridViewTextBoxColumn5
+			// 
+			this->dataGridViewTextBoxColumn5->HeaderText = L"Dn";
+			this->dataGridViewTextBoxColumn5->MinimumWidth = 6;
+			this->dataGridViewTextBoxColumn5->Name = L"dataGridViewTextBoxColumn5";
+			// 
+			// dataGridViewTextBoxColumn6
+			// 
+			this->dataGridViewTextBoxColumn6->HeaderText = L"S^2";
+			this->dataGridViewTextBoxColumn6->MinimumWidth = 6;
+			this->dataGridViewTextBoxColumn6->Name = L"dataGridViewTextBoxColumn6";
+			// 
+			// varminussamplevir
+			// 
+			this->varminussamplevir->HeaderText = L"|Dn - S^2|";
+			this->varminussamplevir->MinimumWidth = 6;
+			this->varminussamplevir->Name = L"varminussamplevir";
+			this->varminussamplevir->Width = 150;
+			// 
+			// samplemedian
+			// 
+			this->samplemedian->HeaderText = L"Me выб.";
+			this->samplemedian->MinimumWidth = 6;
+			this->samplemedian->Name = L"samplemedian";
+			// 
+			// samplespan
+			// 
+			this->samplespan->HeaderText = L"R выб.";
+			this->samplespan->MinimumWidth = 6;
+			this->samplespan->Name = L"samplespan";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(10, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(997, 649);
+			this->ClientSize = System::Drawing::Size(1466, 649);
+			this->Controls->Add(this->dataGridView2);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->numofexpbox);
 			this->Controls->Add(this->numofexplabel);
@@ -381,6 +472,7 @@ namespace Graph {
 			this->Text = L"MyForm";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->task14))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -407,16 +499,19 @@ namespace Graph {
 		// Интервал, где есть данные
 		//double xmin = Convert::ToDouble(textBox1->Text);
 
-		//Забираем вероятность и количество экспериментов из текстбоксов
+		//We take the probability and the number of experiments from textboxes
+
 		double probability = Convert::ToDouble(probbox->Text);
 		double numofexp = Convert::ToDouble(numofexpbox->Text);
 
-		std::vector<randval> randvalarr;
+		std::vector<randval> randvalarr; //vector of random variables without repetitions
+		std::vector<double> allrandvalarr; //vector of  all random variables 
 		randvalarr.push_back(randval(0));
 
+		double sumofelements = 0; //summ of all elements
 		for (int i = 0; i < numofexp-1; i++) {
 
-			double sum = 0;
+			double sum = 0; //correct answers
 			while (true) {
 				double t = rand();
 				double newt = t / RAND_MAX;
@@ -426,6 +521,11 @@ namespace Graph {
 				else
 					break;
 			}
+
+			allrandvalarr.push_back(sum);
+			sumofelements += sum; //add the value of the random variable to the total sum of the elements
+
+			//fill the vector of random variables without repetitions
 
 			bool flag = false;
 			for (randval &j : randvalarr) {
@@ -440,24 +540,61 @@ namespace Graph {
 		}
 
 		sort(randvalarr.begin(), randvalarr.end(), comp);
+		sort(allrandvalarr.begin(), allrandvalarr.end(), comp2);
 
-		//Печать в таблицу
+		//fill in the first table
+
 		int k = 0;
 		dataGridView1->Rows->Clear();
 		double abscumfreq = 0;
 		for (randval j : randvalarr) {
 			dataGridView1->Rows->Add();
-			dataGridView1->Rows[k]->Cells[0]->Value = k;
-			dataGridView1->Rows[k]->Cells[1]->Value = j.getval();
-			dataGridView1->Rows[k]->Cells[2]->Value = j.getfrequency();
-			dataGridView1->Rows[k]->Cells[3]->Value = j.getfrequency() / numofexp;
-			abscumfreq += j.getfrequency();
-			dataGridView1->Rows[k]->Cells[4]->Value = abscumfreq;
-			dataGridView1->Rows[k]->Cells[5]->Value = abscumfreq / numofexp;
+			dataGridView1->Rows[k]->Cells[0]->Value = k; //number
+			dataGridView1->Rows[k]->Cells[1]->Value = j.getval(); //value of a random variable (number of correct answers)
+			dataGridView1->Rows[k]->Cells[2]->Value = j.getfrequency(); //absolute frequency
+			dataGridView1->Rows[k]->Cells[3]->Value = j.getfrequency() / numofexp; //relative frequency
+			abscumfreq += j.getfrequency(); 
+			dataGridView1->Rows[k]->Cells[4]->Value = abscumfreq; //absolute cumulative frequency
+			dataGridView1->Rows[k]->Cells[5]->Value = abscumfreq / numofexp; //relative cumulative frequency
 			k++;
 		}
 
+		//calculate the sample variance
 
+		double samplemean = sumofelements / numofexp;//sample mean
+		double tempsum = 0;  //temporary sum to add the differences between the elementsand the sample mean
+
+		for (randval i : allrandvalarr) {
+			tempsum += pow((i.getval() - samplemean), 2);
+		}
+
+		double samplevariance = tempsum / (numofexp - 1);
+
+
+		//calculate the sample median
+
+		double samplemedian = 0;
+		int n = 0;
+		if (int(numofexp) % 2 == 0) {
+			n = int(numofexp) / 2;
+			samplemedian = (allrandvalarr[n] + allrandvalarr[n + 1]) / 2;
+		}
+		else {
+			n = (int(numofexp) - 1) / 2;
+			samplemedian = allrandvalarr[n];
+		}
+
+		//fill in the second table
+
+		dataGridView2->Rows->Clear();
+		dataGridView2->Rows[0]->Cells[0]->Value = (1 - probability) / probability; //theoretical expectation
+		dataGridView2->Rows[0]->Cells[1]->Value = samplemean; //sample mean
+		dataGridView2->Rows[0]->Cells[2]->Value = abs((1 - probability) / probability - samplemean); //the modulus of the difference between the expectation and the sample mean
+		dataGridView2->Rows[0]->Cells[3]->Value = (1 - probability) * (2 - probability) / pow(probability, 2); //variance
+		dataGridView2->Rows[0]->Cells[4]->Value = samplevariance; //sample variance
+		dataGridView2->Rows[0]->Cells[5]->Value = abs(((1 - probability) * (2 - probability) / pow(probability, 2)) - samplevariance); //the modulus of the difference between the variance and the sample variance
+		dataGridView2->Rows[0]->Cells[6]->Value = samplemedian; //sample median
+		dataGridView2->Rows[0]->Cells[7]->Value = allrandvalarr.back() - allrandvalarr.front(); //sample span
 
 		//double h = Convert::ToDouble(textBox3->Text);
 
