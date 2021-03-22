@@ -98,6 +98,30 @@ namespace Graph {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column2;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ maxdisper;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ maxdiffofprob;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ criticallevel;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -226,6 +250,7 @@ namespace Graph {
 			this->Column2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->maxdisper = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->maxdiffofprob = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->criticallevel = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->task14))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
@@ -263,10 +288,10 @@ namespace Graph {
 			// dataGridView1
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(11) {
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(12) {
 				this->number,
 					this->Y_i, this->n_i, this->n_idivn, this->Sigmai, this->Sigmain, this->theoreticalprobability, this->Column1, this->Column2,
-					this->maxdisper, this->maxdiffofprob
+					this->maxdisper, this->maxdiffofprob, this->criticallevel
 			});
 			this->dataGridView1->Location = System::Drawing::Point(10, 186);
 			this->dataGridView1->Margin = System::Windows::Forms::Padding(5);
@@ -531,6 +556,13 @@ namespace Graph {
 			this->maxdiffofprob->Name = L"maxdiffofprob";
 			this->maxdiffofprob->Width = 150;
 			// 
+			// criticallevel
+			// 
+			this->criticallevel->HeaderText = L"Значение статистики Колмогорова";
+			this->criticallevel->MinimumWidth = 6;
+			this->criticallevel->Name = L"criticallevel";
+			this->criticallevel->Width = 125;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(10, 20);
@@ -594,7 +626,12 @@ namespace Graph {
 		randvalarr.push_back(randval(0));
 
 		double sumofelements = 0; //summ of all elements
-		for (int i = 0; i < numofexp - 1; i++) {
+
+	/*	if (numofexp == 1) {
+
+		}*/
+
+		for (int i = 1; i < numofexp; i++) {
 
 			double sum = 0; //correct answers
 			while (true) {
@@ -674,6 +711,9 @@ namespace Graph {
 
 		dataGridView1->Rows[0]->Cells[9]->Value = maxdisper;
 
+		//
+		dataGridView1->Rows[0]->Cells[11]->Value = sqrt(numofexp) * maxdisper;
+
 		//deviation of the estimated probability from the theoretical
 
 		double maxdiffofprob = *std::max_element(diffofprobarr.begin(), diffofprobarr.end());
@@ -687,31 +727,46 @@ namespace Graph {
 			tempsum += pow((i.getval() - samplemean), 2);
 		}
 
-		double samplevariance = tempsum / (numofexp - 1);
+		double samplevariance = 0;
+
+		if (numofexp == 1) {
+			samplevariance = 0;
+		}
+		else {
+			samplevariance = tempsum / (numofexp - 1);
+		}
+
+		
 
 
 		//calculate the sample median
 
 		double samplemedian = 0;
 		int n = 0;
-		if (int(numofexp) % 2 == 0) {
-			n = int(numofexp) / 2;
-			samplemedian = (allrandvalarr[n] + allrandvalarr[n + 1]) / 2;
+
+		if (numofexp == 1) {
+			samplemedian == allrandvalarr[0];
 		}
 		else {
-			n = (int(numofexp) - 1) / 2;
-			samplemedian = allrandvalarr[n];
-		}
 
+			if (int(numofexp) % 2 == 0) {
+				n = int(numofexp) / 2;
+				samplemedian = (allrandvalarr[n] + allrandvalarr[n + 1]) / 2;
+			}
+			else {
+				n = (int(numofexp) - 1) / 2;
+				samplemedian = allrandvalarr[n];
+			}
+		}
 		//fill in the second table
 
 		dataGridView2->Rows->Clear();
 		dataGridView2->Rows[0]->Cells[0]->Value = (1 - probability) / probability; //theoretical expectation
 		dataGridView2->Rows[0]->Cells[1]->Value = samplemean; //sample mean
 		dataGridView2->Rows[0]->Cells[2]->Value = abs((1 - probability) / probability - samplemean); //the modulus of the difference between the expectation and the sample mean
-		dataGridView2->Rows[0]->Cells[3]->Value = (1 - probability) * (2 - probability) / pow(probability, 2); //variance
+		dataGridView2->Rows[0]->Cells[3]->Value = (1 - probability) / pow(probability, 2); //variance
 		dataGridView2->Rows[0]->Cells[4]->Value = samplevariance; //sample variance
-		dataGridView2->Rows[0]->Cells[5]->Value = abs(((1 - probability) * (2 - probability) / pow(probability, 2)) - samplevariance); //the modulus of the difference between the variance and the sample variance
+		dataGridView2->Rows[0]->Cells[5]->Value = abs(((1 - probability) / pow(probability, 2)) - samplevariance); //the modulus of the difference between the variance and the sample variance
 		dataGridView2->Rows[0]->Cells[6]->Value = samplemedian; //sample median
 		dataGridView2->Rows[0]->Cells[7]->Value = allrandvalarr.back() - allrandvalarr.front(); //sample span
 
