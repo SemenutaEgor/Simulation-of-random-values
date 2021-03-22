@@ -623,16 +623,11 @@ namespace Graph {
 
 		std::vector<randval> randvalarr; //vector of random variables without repetitions
 		std::vector<double> allrandvalarr; //vector of  all random variables 
-		randvalarr.push_back(randval(0));
+		//randvalarr.push_back(randval(0));
 
 		double sumofelements = 0; //summ of all elements
 
-	/*	if (numofexp == 1) {
-
-		}*/
-
-		for (int i = 1; i < numofexp; i++) {
-
+		if (numofexp == 1) {
 			double sum = 0; //correct answers
 			while (true) {
 				double t = rand();
@@ -658,6 +653,37 @@ namespace Graph {
 			}
 			if (flag == false) {
 				randvalarr.push_back(randval(sum));
+			}
+		}
+		else {
+			for (int i = 1; i < numofexp; i++) {
+
+				double sum = 0; //correct answers
+				while (true) {
+					double t = rand();
+					double newt = t / RAND_MAX;
+					if (newt >= probability) {
+						sum++;
+					}
+					else
+						break;
+				}
+
+				allrandvalarr.push_back(sum);
+				sumofelements += sum; //add the value of the random variable to the total sum of the elements
+
+				//fill the vector of random variables without repetitions
+
+				bool flag = false;
+				for (randval& j : randvalarr) {
+					if (j.getval() == sum) {
+						j.incrementfrequency();
+						flag = true;
+					}
+				}
+				if (flag == false) {
+					randvalarr.push_back(randval(sum));
+				}
 			}
 		}
 
@@ -711,7 +737,7 @@ namespace Graph {
 
 		dataGridView1->Rows[0]->Cells[9]->Value = maxdisper;
 
-		//
+		
 		dataGridView1->Rows[0]->Cells[11]->Value = sqrt(numofexp) * maxdisper;
 
 		//deviation of the estimated probability from the theoretical
@@ -745,7 +771,7 @@ namespace Graph {
 		int n = 0;
 
 		if (numofexp == 1) {
-			samplemedian == allrandvalarr[0];
+			samplemedian = allrandvalarr[0];
 		}
 		else {
 
