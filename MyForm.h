@@ -692,9 +692,11 @@ namespace Graph {
 
 		//form an array of probability values
 		double accumulation = 0;
+		int counter = 0;
 		for (randval& j : randvalarr) {
-			accumulation += probability * pow((1 - probability), j.getval());
+			accumulation += probability * pow((1 - probability), counter);
 			j.setprob(accumulation);
+			counter++;
 		}
 
 		//fill in the first table
