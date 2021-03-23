@@ -692,11 +692,18 @@ namespace Graph {
 
 		//form an array of probability values
 		double accumulation = 0;
-		int counter = 0;
 		for (randval& j : randvalarr) {
-			accumulation += probability * pow((1 - probability), counter);
+			accumulation += probability * pow((1 - probability), j.getval());
 			j.setprob(accumulation);
-			counter++;
+		}
+
+		//set theoretical PDF
+		double container = 0;
+		std::vector<double> ThPDF;
+		ThPDF.push_back(container);
+		for (int i = 0; i < numofexp; i++) {
+			container += probability * pow((1 - probability), i);
+			ThPDF.push_back(container);
 		}
 
 		//fill in the first table
@@ -730,11 +737,13 @@ namespace Graph {
 
 		double maxdisper = 0;
 		double tempdisper = 0;
+		int counter = 0;
 		for (randval& j : randvalarr) {
-			tempdisper = abs(j.getrelcumfreq() - j.getprob());
+			tempdisper = abs(j.getrelcumfreq() - ThPDF[counter]);
 			if (tempdisper > maxdisper) {
 				maxdisper = tempdisper;
 			}
+			counter++;
 		}
 
 		dataGridView1->Rows[0]->Cells[9]->Value = maxdisper;
