@@ -737,7 +737,7 @@ namespace Graph {
 
 		double maxdisper = 0;
 		double tempdisper = 0;
-		int counter = 0;
+		int counter = 1;
 		for (randval& j : randvalarr) {
 			tempdisper = abs(j.getrelcumfreq() - ThPDF[counter]);
 			if (tempdisper > maxdisper) {
