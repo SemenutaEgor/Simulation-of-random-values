@@ -656,7 +656,7 @@ namespace Graph {
 			}
 		}
 		else {
-			for (int i = 1; i < numofexp; i++) {
+			for (int i = 1; i <= numofexp; i++) {
 
 				double sum = 0; //correct answers
 				while (true) {
@@ -812,13 +812,13 @@ namespace Graph {
 
 		double xmin_limit = -1;
 		/*double xmax_limit = randvalarr.back().getval() + 1;*/
-		double xmax_limit = numofexp;
+		double xmax_limit = numofexp + 1;
 
 		double ymin_limit = 0;
 		double ymax_limit = 2;
 
 		double xmin = -1;
-		double xmax = randvalarr.back().getval();
+		double xmax = numofexp + 1;
 
 		// Список точек
 		int i = 0;
@@ -832,7 +832,10 @@ namespace Graph {
 			f1_list->Add(i - 1, ThPDF[i]);
 			f1_list->Add(i, ThPDF[i]);
 		}
+		f1_list->Add(numofexp, 1);
+		f1_list->Add(numofexp + 1, 1);
 
+		//draw sample PDF
 		double prevprob = 0;
 		double prevrelcumfreq = 0;
 		prevprob = randvalarr[0].getprob();
@@ -851,6 +854,8 @@ namespace Graph {
 			//	dataGridView1->Rows[i]->Cells[2]->Value = floor(f2(x) * 1000) / 1000;
 			//	i++;
 		}
+		f2_list->Add(numofexp + 1, randvalarr.back().getrelcumfreq());
+
 		LineItem^ Curve1 = panel->AddCurve("F1(x) - theoretical", f1_list, Color::Red, SymbolType::Plus);
 		LineItem^ Curve2 = panel->AddCurve("F2(x) - sample", f2_list, Color::Blue, SymbolType::None);
 
