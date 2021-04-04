@@ -701,8 +701,8 @@ namespace Graph {
 		double container = 0;
 		std::vector<double> ThPDF;
 		ThPDF.push_back(container);
-		for (int i = 0; i < numofexp; i++) {
-			container += probability * pow((1 - probability), i);
+		for (int i = 1; i <= numofexp; i++) {
+			container = 1 - pow((1 - probability), i);
 			ThPDF.push_back(container);
 		}
 
@@ -810,29 +810,36 @@ namespace Graph {
 		double h = Convert::ToDouble(textBox3->Text);
 
 
-		double xmin_limit = 0;
-		double xmax_limit = randvalarr.back().getval() + 1;
+		double xmin_limit = -1;
+		/*double xmax_limit = randvalarr.back().getval() + 1;*/
+		double xmax_limit = numofexp;
 
 		double ymin_limit = 0;
 		double ymax_limit = 2;
 
-		double xmin = 0;
+		double xmin = -1;
 		double xmax = randvalarr.back().getval();
 
 		// Список точек
 		int i = 0;
 		//dataGridView1->Rows->Clear();
 
-	    //Добавление на график
+	    //draw theoretical PDF
+		f1_list->Add(-1, 0);
+		f1_list->Add(0, 0);
+		
+		for (int i = 1; i <= numofexp; i++) {
+			f1_list->Add(i - 1, ThPDF[i]);
+			f1_list->Add(i, ThPDF[i]);
+		}
 
 		double prevprob = 0;
 		double prevrelcumfreq = 0;
-		f1_list->Add(randvalarr[0].getval(), randvalarr[0].getprob());
 		prevprob = randvalarr[0].getprob();
 		f2_list->Add(randvalarr[0].getval(), 0);
 		for (randval j : randvalarr) {
-			f1_list->Add(j.getval(), prevprob);
-			f1_list->Add(j.getval(), j.getprob());
+			//f1_list->Add(j.getval(), prevprob);
+			//f1_list->Add(j.getval(), j.getprob());
 			prevprob = j.getprob();
 			f2_list->Add(j.getval(), prevrelcumfreq);
 			f2_list->Add(j.getval(), j.getrelcumfreq());
@@ -844,8 +851,8 @@ namespace Graph {
 			//	dataGridView1->Rows[i]->Cells[2]->Value = floor(f2(x) * 1000) / 1000;
 			//	i++;
 		}
-		LineItem^ Curve1 = panel->AddCurve("F1(x)", f1_list, Color::Red, SymbolType::Plus);
-		LineItem^ Curve2 = panel->AddCurve("F2(x)", f2_list, Color::Blue, SymbolType::None);
+		LineItem^ Curve1 = panel->AddCurve("F1(x) - theoretical", f1_list, Color::Red, SymbolType::Plus);
+		LineItem^ Curve2 = panel->AddCurve("F2(x) - sample", f2_list, Color::Blue, SymbolType::None);
 
 		// Устанавливаем интересующий нас интервал по оси X
 		panel->XAxis->Scale->Min = xmin_limit;
