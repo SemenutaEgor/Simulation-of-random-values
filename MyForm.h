@@ -811,8 +811,7 @@ namespace Graph {
 
 
 		double xmin_limit = -1;
-		/*double xmax_limit = randvalarr.back().getval() + 1;*/
-		double xmax_limit = numofexp + 1;
+		double xmax_limit = randvalarr.back().getval() + 1;
 
 		double ymin_limit = 0;
 		double ymax_limit = 2;
@@ -832,8 +831,8 @@ namespace Graph {
 			f1_list->Add(i - 1, ThPDF[i]);
 			f1_list->Add(i, ThPDF[i]);
 		}
-		f1_list->Add(numofexp, 1);
-		f1_list->Add(numofexp + 1, 1);
+		f1_list->Add(numofexp, ThPDF[numofexp]);
+		f1_list->Add(numofexp + 1, ThPDF[numofexp]);
 
 		//draw sample PDF
 		double prevprob = 0;
