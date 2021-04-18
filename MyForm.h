@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <math.h>
 #include <random>
 #include <vector>
@@ -87,6 +87,37 @@ namespace Graph {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ varminussamplevir;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ samplemedian;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ samplespan;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	private: System::Windows::Forms::Label^ signlevellabel;
+	private: System::Windows::Forms::TextBox^ signlevelbox;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ number;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Y_i;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ n_i;
@@ -99,6 +130,8 @@ namespace Graph {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ maxdisper;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ maxdiffofprob;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ criticallevel;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ signlevel;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ decision;
 
 
 
@@ -239,6 +272,8 @@ namespace Graph {
 			this->varminussamplevir = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->samplemedian = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->samplespan = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->signlevellabel = (gcnew System::Windows::Forms::Label());
+			this->signlevelbox = (gcnew System::Windows::Forms::TextBox());
 			this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Y_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->n_i = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -251,6 +286,8 @@ namespace Graph {
 			this->maxdisper = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->maxdiffofprob = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->criticallevel = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->signlevel = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->decision = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->task14))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
@@ -276,22 +313,22 @@ namespace Graph {
 			// 
 			this->startbutton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->startbutton->Location = System::Drawing::Point(1116, 102);
+			this->startbutton->Location = System::Drawing::Point(1012, 133);
 			this->startbutton->Margin = System::Windows::Forms::Padding(5);
 			this->startbutton->Name = L"startbutton";
-			this->startbutton->Size = System::Drawing::Size(236, 45);
+			this->startbutton->Size = System::Drawing::Size(447, 45);
 			this->startbutton->TabIndex = 1;
-			this->startbutton->Text = L"Ñòàðò";
+			this->startbutton->Text = L"Ð¡Ñ‚Ð°Ñ€Ñ‚";
 			this->startbutton->UseVisualStyleBackColor = true;
 			this->startbutton->Click += gcnew System::EventHandler(this, &MyForm::startbutton_Click);
 			// 
 			// dataGridView1
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(12) {
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(14) {
 				this->number,
 					this->Y_i, this->n_i, this->n_idivn, this->Sigmai, this->Sigmain, this->theoreticalprobability, this->Column1, this->Column2,
-					this->maxdisper, this->maxdiffofprob, this->criticallevel
+					this->maxdisper, this->maxdiffofprob, this->criticallevel, this->signlevel, this->decision
 			});
 			this->dataGridView1->Location = System::Drawing::Point(10, 186);
 			this->dataGridView1->Margin = System::Windows::Forms::Padding(5);
@@ -321,7 +358,7 @@ namespace Graph {
 			this->problabel->Name = L"problabel";
 			this->problabel->Size = System::Drawing::Size(189, 29);
 			this->problabel->TabIndex = 5;
-			this->problabel->Text = L"Âåðîÿòíîñòü p:";
+			this->problabel->Text = L"Ð’ÐµÑ€Ð¾ÑÑ‚Ð½Ð¾ÑÑ‚ÑŒ p:";
 			// 
 			// probbox
 			// 
@@ -371,7 +408,7 @@ namespace Graph {
 			this->numofexplabel->Name = L"numofexplabel";
 			this->numofexplabel->Size = System::Drawing::Size(345, 29);
 			this->numofexplabel->TabIndex = 12;
-			this->numofexplabel->Text = L"Êîëè÷åñòâî ýêñïåðèìåíòîâ:";
+			this->numofexplabel->Text = L"ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÐºÑÐ¿ÐµÑ€Ð¸Ð¼ÐµÐ½Ñ‚Ð¾Ð²:";
 			// 
 			// textBox5
 			// 
@@ -399,7 +436,7 @@ namespace Graph {
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(145, 20);
 			this->label2->TabIndex = 15;
-			this->label2->Text = L"(÷åðåç çàïÿòóþ)";
+			this->label2->Text = L"(Ñ‡ÐµÑ€ÐµÐ· Ð·Ð°Ð¿ÑÑ‚ÑƒÑŽ)";
 			// 
 			// dataGridView2
 			// 
@@ -427,7 +464,7 @@ namespace Graph {
 			// 
 			// dataGridViewTextBoxColumn3
 			// 
-			this->dataGridViewTextBoxColumn3->HeaderText = L"Xâûá.ñð.";
+			this->dataGridViewTextBoxColumn3->HeaderText = L"XÐ²Ñ‹Ð±.ÑÑ€.";
 			this->dataGridViewTextBoxColumn3->MinimumWidth = 6;
 			this->dataGridViewTextBoxColumn3->Name = L"dataGridViewTextBoxColumn3";
 			this->dataGridViewTextBoxColumn3->ReadOnly = true;
@@ -435,7 +472,7 @@ namespace Graph {
 			// 
 			// dataGridViewTextBoxColumn4
 			// 
-			this->dataGridViewTextBoxColumn4->HeaderText = L"|En - Xâûá.ñð.|";
+			this->dataGridViewTextBoxColumn4->HeaderText = L"|En - XÐ²Ñ‹Ð±.ÑÑ€.|";
 			this->dataGridViewTextBoxColumn4->MinimumWidth = 6;
 			this->dataGridViewTextBoxColumn4->Name = L"dataGridViewTextBoxColumn4";
 			this->dataGridViewTextBoxColumn4->ReadOnly = true;
@@ -464,21 +501,41 @@ namespace Graph {
 			// 
 			// samplemedian
 			// 
-			this->samplemedian->HeaderText = L"Me âûá.";
+			this->samplemedian->HeaderText = L"Me Ð²Ñ‹Ð±.";
 			this->samplemedian->MinimumWidth = 6;
 			this->samplemedian->Name = L"samplemedian";
 			this->samplemedian->Width = 125;
 			// 
 			// samplespan
 			// 
-			this->samplespan->HeaderText = L"R âûá.";
+			this->samplespan->HeaderText = L"R Ð²Ñ‹Ð±.";
 			this->samplespan->MinimumWidth = 6;
 			this->samplespan->Name = L"samplespan";
 			this->samplespan->Width = 125;
 			// 
+			// signlevellabel
+			// 
+			this->signlevellabel->AutoSize = true;
+			this->signlevellabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->signlevellabel->Location = System::Drawing::Point(1007, 83);
+			this->signlevellabel->Margin = System::Windows::Forms::Padding(5, 0, 5, 0);
+			this->signlevellabel->Name = L"signlevellabel";
+			this->signlevellabel->Size = System::Drawing::Size(293, 29);
+			this->signlevellabel->TabIndex = 18;
+			this->signlevellabel->Text = L"Ð£Ñ€Ð¾Ð²ÐµÐ½ÑŒ Ð·Ð½Ð°Ñ‡Ð¸Ð¼Ð¾ÑÑ‚Ð¸  Î±:\r\n";
+			// 
+			// signlevelbox
+			// 
+			this->signlevelbox->Location = System::Drawing::Point(1352, 87);
+			this->signlevelbox->Margin = System::Windows::Forms::Padding(5);
+			this->signlevelbox->Name = L"signlevelbox";
+			this->signlevelbox->Size = System::Drawing::Size(107, 26);
+			this->signlevelbox->TabIndex = 19;
+			// 
 			// number
 			// 
-			this->number->HeaderText = L"¹";
+			this->number->HeaderText = L"â„–";
 			this->number->MinimumWidth = 6;
 			this->number->Name = L"number";
 			this->number->Width = 125;
@@ -530,21 +587,21 @@ namespace Graph {
 			// 
 			// Column1
 			// 
-			this->Column1->HeaderText = L"F(x) òåîð.";
+			this->Column1->HeaderText = L"F(x) Ñ‚ÐµÐ¾Ñ€.";
 			this->Column1->MinimumWidth = 6;
 			this->Column1->Name = L"Column1";
 			this->Column1->Width = 125;
 			// 
 			// Column2
 			// 
-			this->Column2->HeaderText = L"F(x) âûá.";
+			this->Column2->HeaderText = L"F(x) Ð²Ñ‹Ð±.";
 			this->Column2->MinimumWidth = 6;
 			this->Column2->Name = L"Column2";
 			this->Column2->Width = 125;
 			// 
 			// maxdisper
 			// 
-			this->maxdisper->HeaderText = L"max|F(x)âûá. - F(x)òåîð.|";
+			this->maxdisper->HeaderText = L"max|F(x)Ð²Ñ‹Ð±. - F(x)Ñ‚ÐµÐ¾Ñ€.|";
 			this->maxdisper->MinimumWidth = 6;
 			this->maxdisper->Name = L"maxdisper";
 			this->maxdisper->Width = 125;
@@ -558,16 +615,32 @@ namespace Graph {
 			// 
 			// criticallevel
 			// 
-			this->criticallevel->HeaderText = L"Çíà÷åíèå ñòàòèñòèêè Êîëìîãîðîâà";
+			this->criticallevel->HeaderText = L"Ð—Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ ÑÑ‚Ð°Ñ‚Ð¸ÑÑ‚Ð¸ÐºÐ¸ ÐšÐ¾Ð»Ð¼Ð¾Ð³Ð¾Ñ€Ð¾Ð²Ð°-Ð¡Ð¼Ð¸Ñ€Ð½Ð¾Ð²Ð°";
 			this->criticallevel->MinimumWidth = 6;
 			this->criticallevel->Name = L"criticallevel";
-			this->criticallevel->Width = 125;
+			this->criticallevel->Width = 150;
+			// 
+			// signlevel
+			// 
+			this->signlevel->HeaderText = L"Ð£Ñ€Ð¾Ð²ÐµÐ½ÑŒ Ð·Ð½Ð°Ñ‡Ð¸Ð¼Ð¾ÑÑ‚Ð¸  Î±";
+			this->signlevel->MinimumWidth = 6;
+			this->signlevel->Name = L"signlevel";
+			this->signlevel->Width = 125;
+			// 
+			// decision
+			// 
+			this->decision->HeaderText = L"Ð ÐµÑˆÐµÐ½Ð¸Ðµ";
+			this->decision->MinimumWidth = 6;
+			this->decision->Name = L"decision";
+			this->decision->Width = 125;
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(10, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1466, 649);
+			this->Controls->Add(this->signlevelbox);
+			this->Controls->Add(this->signlevellabel);
 			this->Controls->Add(this->dataGridView2);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->numofexpbox);
@@ -613,10 +686,7 @@ namespace Graph {
 		PointPairList^ f1_list = gcnew ZedGraph::PointPairList();
 		PointPairList^ f2_list = gcnew ZedGraph::PointPairList();
 
-		// Èíòåðâàë, ãäå åñòü äàííûå
-		//double xmin = Convert::ToDouble(textBox1->Text);
-
-		//We take the probability and the number of experiments from textboxes
+		//take the probability and the number of experiments from textboxes
 
 		double probability = Convert::ToDouble(probbox->Text);
 		double numofexp = Convert::ToDouble(numofexpbox->Text);
@@ -748,9 +818,20 @@ namespace Graph {
 
 		dataGridView1->Rows[0]->Cells[9]->Value = maxdisper;
 
+		double kolstat;
+		kolstat = sqrt(numofexp) * maxdisper;
 		
-		dataGridView1->Rows[0]->Cells[11]->Value = sqrt(numofexp) * maxdisper;
+		dataGridView1->Rows[0]->Cells[11]->Value = kolstat;
 
+		double signlevel = Convert::ToDouble(signlevelbox->Text);
+		dataGridView1->Rows[0]->Cells[12]->Value = signlevel;
+
+		if (kolstat > signlevel) {
+			dataGridView1->Rows[0]->Cells[13]->Value = "ÐžÑ‚Ð²ÐµÑ€Ð³Ð°ÐµÐ¼";
+		}
+		else {
+			dataGridView1->Rows[0]->Cells[13]->Value = "ÐŸÑ€Ð¸Ð½Ð¸Ð¼Ð°ÐµÐ¼";
+		}
 		//deviation of the estimated probability from the theoretical
 
 		double maxdiffofprob = *std::max_element(diffofprobarr.begin(), diffofprobarr.end());
@@ -819,7 +900,7 @@ namespace Graph {
 		double xmin = -1;
 		double xmax = numofexp + 1;
 
-		// Ñïèñîê òî÷åê
+		// Ð¡Ð¿Ð¸ÑÐ¾Ðº Ñ‚Ð¾Ñ‡ÐµÐº
 		int i = 0;
 		//dataGridView1->Rows->Clear();
 
@@ -846,7 +927,7 @@ namespace Graph {
 			f2_list->Add(j.getval(), prevrelcumfreq);
 			f2_list->Add(j.getval(), j.getrelcumfreq());
 			prevrelcumfreq = j.getrelcumfreq();
-			//Ïå÷àòü â òàáëèöó
+			//ÐŸÐµÑ‡Ð°Ñ‚ÑŒ Ð² Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ
 			//dataGridView1->Rows->Add();
 			//dataGridView1->Rows[i]->Cells[0]->Value = x; 			
 			//dataGridView1->Rows[i]->Cells[1]->Value = floor(f1(x) * 1000) / 1000;
@@ -858,19 +939,19 @@ namespace Graph {
 		LineItem^ Curve1 = panel->AddCurve("F1(x) - theoretical", f1_list, Color::Red, SymbolType::Plus);
 		LineItem^ Curve2 = panel->AddCurve("F2(x) - sample", f2_list, Color::Blue, SymbolType::None);
 
-		// Óñòàíàâëèâàåì èíòåðåñóþùèé íàñ èíòåðâàë ïî îñè X
+		// Ð£ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ð¸Ð½Ñ‚ÐµÑ€ÐµÑÑƒÑŽÑ‰Ð¸Ð¹ Ð½Ð°Ñ Ð¸Ð½Ñ‚ÐµÑ€Ð²Ð°Ð» Ð¿Ð¾ Ð¾ÑÐ¸ X
 		panel->XAxis->Scale->Min = xmin_limit;
 		panel->XAxis->Scale->Max = xmax_limit;
 		/*
-				// Óñòàíàâëèâàåì èíòåðåñóþùèé íàñ èíòåðâàë ïî îñè Y
+				// Ð£ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ð¸Ð½Ñ‚ÐµÑ€ÐµÑÑƒÑŽÑ‰Ð¸Ð¹ Ð½Ð°Ñ Ð¸Ð½Ñ‚ÐµÑ€Ð²Ð°Ð» Ð¿Ð¾ Ð¾ÑÐ¸ Y
 				panel->YAxis->Scale->Min = ymin_limit;
 				panel->YAxis->Scale->Max = ymax_limit;
 		*/
-		// Âûçûâàåì ìåòîä AxisChange (), ÷òîáû îáíîâèòü äàííûå îá îñÿõ. 
-		// Â ïðîòèâíîì ñëó÷àå íà ðèñóíêå áóäåò ïîêàçàíà òîëüêî ÷àñòü ãðàôèêà, 
-		// êîòîðàÿ óìåùàåòñÿ â èíòåðâàëû ïî îñÿì, óñòàíîâëåííûå ïî óìîë÷àíèþ
+		// Ð’Ñ‹Ð·Ñ‹Ð²Ð°ÐµÐ¼ Ð¼ÐµÑ‚Ð¾Ð´ AxisChange (), Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð¾Ð±Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð¾Ð± Ð¾ÑÑÑ…. 
+		// Ð’ Ð¿Ñ€Ð¾Ñ‚Ð¸Ð²Ð½Ð¾Ð¼ ÑÐ»ÑƒÑ‡Ð°Ðµ Ð½Ð° Ñ€Ð¸ÑÑƒÐ½ÐºÐµ Ð±ÑƒÐ´ÐµÑ‚ Ð¿Ð¾ÐºÐ°Ð·Ð°Ð½Ð° Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ñ‡Ð°ÑÑ‚ÑŒ Ð³Ñ€Ð°Ñ„Ð¸ÐºÐ°, 
+		// ÐºÐ¾Ñ‚Ð¾Ñ€Ð°Ñ ÑƒÐ¼ÐµÑ‰Ð°ÐµÑ‚ÑÑ Ð² Ð¸Ð½Ñ‚ÐµÑ€Ð²Ð°Ð»Ñ‹ Ð¿Ð¾ Ð¾ÑÑÐ¼, ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½Ð½Ñ‹Ðµ Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ
 		zedGraphControl1->AxisChange();
-		// Îáíîâëÿåì ãðàôèê
+		// ÐžÐ±Ð½Ð¾Ð²Ð»ÑÐµÐ¼ Ð³Ñ€Ð°Ñ„Ð¸Ðº
 		zedGraphControl1->Invalidate();
 
 	}
@@ -883,15 +964,15 @@ namespace Graph {
 		GraphPane^ panel = zedGraphControl1->GraphPane;
 		double xmin = Convert::ToDouble(textBox5->Text);
 		double xmax = Convert::ToDouble(numofexpbox->Text);
-		//Óñòàíàâëèâàåì èíòåðåñóþùèé íàñ èíòåðâàë ïî îñè X
+		//Ð£ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ð¸Ð½Ñ‚ÐµÑ€ÐµÑÑƒÑŽÑ‰Ð¸Ð¹ Ð½Ð°Ñ Ð¸Ð½Ñ‚ÐµÑ€Ð²Ð°Ð» Ð¿Ð¾ Ð¾ÑÐ¸ X
 		panel->XAxis->Scale->Min = xmin;
 		panel->XAxis->Scale->Max = xmax;
 
-		//Âûçûâàåì ìåòîä AxisChange (), ÷òîáû îáíîâèòü äàííûå îá îñÿõ. 
-		//Â ïðîòèâíîì ñëó÷àå íà ðèñóíêå áóäåò ïîêàçàíà òîëüêî ÷àñòü ãðàôèêà, 
-	   // êîòîðàÿ óìåùàåòñÿ â èíòåðâàëû ïî îñÿì, óñòàíîâëåííûå ïî óìîë÷àíèþ
+		//Ð’Ñ‹Ð·Ñ‹Ð²Ð°ÐµÐ¼ Ð¼ÐµÑ‚Ð¾Ð´ AxisChange (), Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð¾Ð±Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð¾Ð± Ð¾ÑÑÑ…. 
+		//Ð’ Ð¿Ñ€Ð¾Ñ‚Ð¸Ð²Ð½Ð¾Ð¼ ÑÐ»ÑƒÑ‡Ð°Ðµ Ð½Ð° Ñ€Ð¸ÑÑƒÐ½ÐºÐµ Ð±ÑƒÐ´ÐµÑ‚ Ð¿Ð¾ÐºÐ°Ð·Ð°Ð½Ð° Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ñ‡Ð°ÑÑ‚ÑŒ Ð³Ñ€Ð°Ñ„Ð¸ÐºÐ°, 
+	   // ÐºÐ¾Ñ‚Ð¾Ñ€Ð°Ñ ÑƒÐ¼ÐµÑ‰Ð°ÐµÑ‚ÑÑ Ð² Ð¸Ð½Ñ‚ÐµÑ€Ð²Ð°Ð»Ñ‹ Ð¿Ð¾ Ð¾ÑÑÐ¼, ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½Ð½Ñ‹Ðµ Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ
 		zedGraphControl1->AxisChange();
-		// Îáíîâëÿåì ãðàôèê
+		// ÐžÐ±Ð½Ð¾Ð²Ð»ÑÐµÐ¼ Ð³Ñ€Ð°Ñ„Ð¸Ðº
 		zedGraphControl1->Invalidate();
 
 	}
