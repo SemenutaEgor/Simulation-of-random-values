@@ -137,6 +137,9 @@ private: System::Windows::Forms::Label^ interlabel;
 private: System::Windows::Forms::DataGridView^ dataGridView3;
 private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn1;
 private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn7;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ probinter;
+
+
 
 
 
@@ -298,6 +301,7 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxC
 			this->dataGridView3 = (gcnew System::Windows::Forms::DataGridView());
 			this->dataGridViewTextBoxColumn1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->dataGridViewTextBoxColumn7 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->probinter = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->task14))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
@@ -668,9 +672,9 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxC
 			// dataGridView3
 			// 
 			this->dataGridView3->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView3->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
+			this->dataGridView3->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
 				this->dataGridViewTextBoxColumn1,
-					this->dataGridViewTextBoxColumn7
+					this->dataGridViewTextBoxColumn7, this->probinter
 			});
 			this->dataGridView3->Location = System::Drawing::Point(10, 390);
 			this->dataGridView3->Margin = System::Windows::Forms::Padding(5);
@@ -689,11 +693,18 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxC
 			// 
 			// dataGridViewTextBoxColumn7
 			// 
-			this->dataGridViewTextBoxColumn7->HeaderText = L"сколько попало";
+			this->dataGridViewTextBoxColumn7->HeaderText = L"n_i";
 			this->dataGridViewTextBoxColumn7->MinimumWidth = 6;
 			this->dataGridViewTextBoxColumn7->Name = L"dataGridViewTextBoxColumn7";
 			this->dataGridViewTextBoxColumn7->ReadOnly = true;
 			this->dataGridViewTextBoxColumn7->Width = 135;
+			// 
+			// probinter
+			// 
+			this->probinter->HeaderText = L"p_i";
+			this->probinter->MinimumWidth = 6;
+			this->probinter->Name = L"probinter";
+			this->probinter->Width = 125;
 			// 
 			// MyForm
 			// 
@@ -906,16 +917,24 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxC
 		std::vector<double> interarr; //vector of signs in intervals
 		interarr.push_back(0);
 		randval checking;
+		std::vector<randval> intervals; 
+		int intcounter = 1;
+		intervals.push_back(randval(counter, 0));
+		counter++;
 		if (inter <= randvalarr.size()) {
 			int j = 0;
 			for (int i = 0; i < inter - 1; i++) {
 				checking = randvalarr[j];
 				if (checking.getval() <= i) {
 					interarr.push_back(checking.getfrequency());
+					intervals.push_back(randval(intcounter, checking.getfrequency()));
+					intcounter++;
 					j++;
 				}
 				else {
 					interarr.push_back(0);
+					intervals.push_back(randval(intcounter, 0));
+					intcounter++;
 				}
 			}
 			double tmp = 0;
@@ -923,24 +942,9 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxC
 				tmp += randvalarr[j].getfrequency();
 			}
 			interarr.push_back(tmp);
+			intervals.push_back(randval(intcounter, tmp));
+			intcounter++;
 		}
-		//else if (inter <= randvalarr.back().getval()){
-		//	//int j = 0;
-		//	//int i = 0;
-		//	//for (i = 0; i <= randvalarr.back().getval(); i++) {
-		//	//	checking = randvalarr[j];
-		//	//	if (checking.getval() <= i) {
-		//	//		interarr.push_back(checking.getfrequency());
-		//	//		j++;
-		//	//	}
-		//	//	else {
-		//	//		interarr.push_back(0);
-		//	//	}
-		//	//}
-		//	//for (i; i < inter; i++) {
-		//	//	interarr.push_back(0);
-		//	//}
-		//}
 		else {
 			int j = 0;
 			int i = 0;
@@ -950,6 +954,8 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxC
 				if (checking.getval() <= i) {
 					if (interarr.size() < inter) {
 						interarr.push_back(checking.getfrequency());
+						intervals.push_back(randval(intcounter, checking.getfrequency()));
+						intcounter++;
 						j++;
 					}
 					else {
@@ -959,12 +965,30 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxC
 				}
 				else if (interarr.size() < inter) {
 					interarr.push_back(0);
+					intervals.push_back(randval(intcounter, 0));
+					intcounter++;
 				}
 			}
 			interarr.push_back(temp);
+			intervals.push_back(randval(intcounter, temp));
+			intcounter++;
 			for (i; i < inter - 1; i++) {
 					interarr.push_back(0);
+					intervals.push_back(randval(intcounter, 0));
+					intcounter++;
 			}
+		}
+
+		std::vector<double> interprobarr;
+		interprobarr.push_back(0);
+		for (int i = 1; i <= interarr.size(); i++) {
+			double tempsum = 0;
+			for (randval m : randvalarr) {
+				if ((m.getval() >= i) && (m.getval() < i + 1)) {
+					tempsum += m.getprob();
+				}
+			}
+			interprobarr.push_back(tempsum);
 		}
 
 		dataGridView3->Rows->Clear();
@@ -973,6 +997,8 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxC
 			dataGridView3->Rows->Add();
 			dataGridView3->Rows[l]->Cells[0]->Value = l+1; //number
 			dataGridView3->Rows[l]->Cells[1]->Value = interarr[l]; 
+			//dataGridView3->Rows[l]->Cells[2]->Value = interprobarr[l];
+			dataGridView3->Rows[l]->Cells[2]->Value = intervals[l].getfrequency();
 			l++;
 		}
 

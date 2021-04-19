@@ -23,6 +23,14 @@ public:
 		relcumfreq = 0;
 	}
 
+	//constructor with parameters
+	randval(double _val, double _freq) {
+		val = _val;
+		frequency = _freq;
+		prob = 0;
+		relcumfreq = 0;
+	}
+
 	//set&get
 
 	void setval(double newval) {
