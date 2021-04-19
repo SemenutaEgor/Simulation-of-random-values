@@ -924,32 +924,47 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxC
 			}
 			interarr.push_back(tmp);
 		}
+		//else if (inter <= randvalarr.back().getval()){
+		//	//int j = 0;
+		//	//int i = 0;
+		//	//for (i = 0; i <= randvalarr.back().getval(); i++) {
+		//	//	checking = randvalarr[j];
+		//	//	if (checking.getval() <= i) {
+		//	//		interarr.push_back(checking.getfrequency());
+		//	//		j++;
+		//	//	}
+		//	//	else {
+		//	//		interarr.push_back(0);
+		//	//	}
+		//	//}
+		//	//for (i; i < inter; i++) {
+		//	//	interarr.push_back(0);
+		//	//}
+		//}
 		else {
 			int j = 0;
-			for (int i = 0; i <= randvalarr.back().getval(); i++) {
+			int i = 0;
+			int temp = 0;
+			for (i = 0; i <= randvalarr.back().getval(); i++) {
 				checking = randvalarr[j];
 				if (checking.getval() <= i) {
-					interarr.push_back(checking.getfrequency());
-					j++;
+					if (interarr.size() < inter) {
+						interarr.push_back(checking.getfrequency());
+						j++;
+					}
+					else {
+						temp += checking.getfrequency();
+						j++;
+					}
 				}
-				else {
+				else if (interarr.size() < inter) {
 					interarr.push_back(0);
 				}
 			}
-			for (int i = randvalarr.back().getval(); i < inter - 1; i++) {
-				interarr.push_back(0);
+			interarr.push_back(temp);
+			for (i; i < inter - 1; i++) {
+					interarr.push_back(0);
 			}
-			//for (int i = 0; i < inter; i++) {
-			//	if ((i >= randvalarr.size()) || (randvalarr[i].getval() != i)) { /*|| (randvalarr[i].getval() != i)) {*/
-			//		interarr.push_back(0);
-			//	}
-			//	//else if (randvalarr[i].getval() != i) {
-			//	//	interarr.push_back(0);
-			//	//}
-			//	else {
-			//		interarr.push_back(randvalarr[i].getfrequency());
-			//	}
-			//}
 		}
 
 		dataGridView3->Rows->Clear();
