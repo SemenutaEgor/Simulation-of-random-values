@@ -138,6 +138,14 @@ private: System::Windows::Forms::DataGridView^ dataGridView3;
 private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn1;
 private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn7;
 private: System::Windows::Forms::DataGridViewTextBoxColumn^ probinter;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ averexp;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ hi2;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ hi2sum;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
+
+
+
+
 
 
 
@@ -302,6 +310,10 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ probinter;
 			this->dataGridViewTextBoxColumn1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->dataGridViewTextBoxColumn7 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->probinter = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->averexp = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->hi2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->hi2sum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Column3 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->task14))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
@@ -672,9 +684,9 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ probinter;
 			// dataGridView3
 			// 
 			this->dataGridView3->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView3->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+			this->dataGridView3->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(7) {
 				this->dataGridViewTextBoxColumn1,
-					this->dataGridViewTextBoxColumn7, this->probinter
+					this->dataGridViewTextBoxColumn7, this->probinter, this->averexp, this->hi2, this->hi2sum, this->Column3
 			});
 			this->dataGridView3->Location = System::Drawing::Point(10, 390);
 			this->dataGridView3->Margin = System::Windows::Forms::Padding(5);
@@ -705,6 +717,34 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ probinter;
 			this->probinter->MinimumWidth = 6;
 			this->probinter->Name = L"probinter";
 			this->probinter->Width = 125;
+			// 
+			// averexp
+			// 
+			this->averexp->HeaderText = L"среднее ожидаемое";
+			this->averexp->MinimumWidth = 6;
+			this->averexp->Name = L"averexp";
+			this->averexp->Width = 125;
+			// 
+			// hi2
+			// 
+			this->hi2->HeaderText = L"(n_i - np_i)^2 / np_i";
+			this->hi2->MinimumWidth = 6;
+			this->hi2->Name = L"hi2";
+			this->hi2->Width = 150;
+			// 
+			// hi2sum
+			// 
+			this->hi2sum->HeaderText = L"hi^2";
+			this->hi2sum->MinimumWidth = 6;
+			this->hi2sum->Name = L"hi2sum";
+			this->hi2sum->Width = 125;
+			// 
+			// Column3
+			// 
+			this->Column3->HeaderText = L"Column3";
+			this->Column3->MinimumWidth = 6;
+			this->Column3->Name = L"Column3";
+			this->Column3->Width = 125;
 			// 
 			// MyForm
 			// 
@@ -911,77 +951,103 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ probinter;
 			dataGridView1->Rows[0]->Cells[13]->Value = "Принимаем";
 		}
 
-		//hypotesis decision by hi^2 statistics
+		//calculate the probability of hitting each interval
+		
+		double numofint = Convert::ToDouble(interbox->Text);
 
-		double inter = Convert::ToDouble(interbox->Text) - 1;
-		std::vector<double> interarr; //vector of signs in intervals
-		interarr.push_back(0);
-		randval checking;
-		std::vector<randval> intervals; 
-		int intcounter = 1;
-		intervals.push_back(randval(counter, 0));
-		counter++;
-		if (inter <= randvalarr.size()) {
-			int j = 0;
-			for (int i = 0; i < inter - 1; i++) {
-				checking = randvalarr[j];
-				if (checking.getval() <= i) {
-					interarr.push_back(checking.getfrequency());
-					intervals.push_back(randval(intcounter, checking.getfrequency()));
-					intcounter++;
-					j++;
+		std::vector<double> intervals(numofint, 0); //vector of intervals
+		int it = 1;
+		for (it; it <= numofint - 2; it++) {
+			for (randval j : randvalarr) {
+				if ((j.getval() < it) && (j.getval() >= it - 1)) {
+					intervals[it] += j.getfrequency();
 				}
-				else {
-					interarr.push_back(0);
-					intervals.push_back(randval(intcounter, 0));
-					intcounter++;
-				}
-			}
-			double tmp = 0;
-			for (j; j < randvalarr.size(); j++) {
-				tmp += randvalarr[j].getfrequency();
-			}
-			interarr.push_back(tmp);
-			intervals.push_back(randval(intcounter, tmp));
-			intcounter++;
-		}
-		else {
-			int j = 0;
-			int i = 0;
-			int temp = 0;
-			for (i = 0; i <= randvalarr.back().getval(); i++) {
-				checking = randvalarr[j];
-				if (checking.getval() <= i) {
-					if (interarr.size() < inter) {
-						interarr.push_back(checking.getfrequency());
-						intervals.push_back(randval(intcounter, checking.getfrequency()));
-						intcounter++;
-						j++;
-					}
-					else {
-						temp += checking.getfrequency();
-						j++;
-					}
-				}
-				else if (interarr.size() < inter) {
-					interarr.push_back(0);
-					intervals.push_back(randval(intcounter, 0));
-					intcounter++;
-				}
-			}
-			interarr.push_back(temp);
-			intervals.push_back(randval(intcounter, temp));
-			intcounter++;
-			for (i; i < inter - 1; i++) {
-					interarr.push_back(0);
-					intervals.push_back(randval(intcounter, 0));
-					intcounter++;
 			}
 		}
+		for (randval j : randvalarr) {
+			if (j.getval() >= it - 1) {
+				intervals[it] += j.getfrequency();
+			}
+		}
+
+
+		//double inter = Convert::ToDouble(interbox->Text) - 1;
+		//std::vector<double> interarr; //vector of signs in intervals
+		//interarr.push_back(0);
+		//randval checking; //??????????
+		//std::vector<randval> intervals; //?????????
+		//int intcounter = 1; //????????
+		//intervals.push_back(randval(intcounter, 0)); 
+		//intcounter++; 
+		//if (inter <= randvalarr.size()) {
+		//	int j = 0;
+		//	for (int i = 0; i < inter - 1; i++) {
+		//		checking = randvalarr[j];
+		//		if (checking.getval() <= i) {
+		//			interarr.push_back(checking.getfrequency());
+		//			intervals.push_back(randval(intcounter, checking.getfrequency()));
+		//			intervals.back().setprob(probability * pow((1 - probability), checking.getval()));
+		//			intcounter++;
+		//			j++;
+		//		}
+		//		else {
+		//			interarr.push_back(0);
+		//			intervals.push_back(randval(intcounter, 0));
+		//			intcounter++;
+		//		}
+		//	}
+		//	double tmp = 0;
+		//	double tmpprob = 0;
+		//	for (j; j < randvalarr.size(); j++) {
+		//		tmp += randvalarr[j].getfrequency();
+		//		tmpprob += probability * pow((1 - probability), randvalarr[j].getval());
+		//	}
+		//	interarr.push_back(tmp);
+		//	intervals.push_back(randval(intcounter, tmp));
+		//	intervals.back().setprob(tmpprob);
+		//	intcounter++;
+		//}
+		//else {
+		//	int j = 0;
+		//	int i = 0;
+		//	int temp = 0;
+		//	double tempprob = 0;
+		//	for (i = 0; i <= randvalarr.back().getval(); i++) {
+		//		checking = randvalarr[j];
+		//		if (checking.getval() <= i) {
+		//			if (interarr.size() < inter) {
+		//				interarr.push_back(checking.getfrequency());
+		//				intervals.push_back(randval(intcounter, checking.getfrequency()));
+		//				intervals.back().setprob(probability * pow((1 - probability), checking.getval()));
+		//				intcounter++;
+		//				j++;
+		//			}
+		//			else {
+		//				temp += checking.getfrequency();
+		//				tempprob += probability * pow((1 - probability), checking.getval());
+		//				j++;
+		//			}
+		//		}
+		//		else if (interarr.size() < inter) {
+		//			interarr.push_back(0);
+		//			intervals.push_back(randval(intcounter, 0));
+		//			intcounter++;
+		//		}
+		//	}
+		//	interarr.push_back(temp);
+		//	intervals.push_back(randval(intcounter, temp));
+		//	intervals.back().setprob(tempprob);
+		//	intcounter++;
+		//	for (i; i < inter - 1; i++) {
+		//			interarr.push_back(0);
+		//			intervals.push_back(randval(intcounter, 0));
+		//			intcounter++;
+		//	}
+		//}
 
 		std::vector<double> interprobarr;
 		interprobarr.push_back(0);
-		for (int i = 1; i <= interarr.size(); i++) {
+		for (int i = 1; i <= intervals.size(); i++) {
 			double tempsum = 0;
 			for (randval m : randvalarr) {
 				if ((m.getval() >= i) && (m.getval() < i + 1)) {
@@ -993,14 +1059,29 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ probinter;
 
 		dataGridView3->Rows->Clear();
 		int l = 0;
-		for (double j : interarr) {
+		double hi2 = 0;
+		for (double j : intervals) {
 			dataGridView3->Rows->Add();
 			dataGridView3->Rows[l]->Cells[0]->Value = l+1; //number
-			dataGridView3->Rows[l]->Cells[1]->Value = interarr[l]; 
+			//dataGridView3->Rows[l]->Cells[1]->Value = interarr[l]; 
 			//dataGridView3->Rows[l]->Cells[2]->Value = interprobarr[l];
-			dataGridView3->Rows[l]->Cells[2]->Value = intervals[l].getfrequency();
+			dataGridView3->Rows[l]->Cells[1]->Value = intervals[l];
+			dataGridView3->Rows[l]->Cells[2]->Value = 0; /*intervals[l].getprob();*/
+			dataGridView3->Rows[l]->Cells[3]->Value = 0;/*intervals[l].getprob() * numofexp;*/
+			//if (intervals[l].getprob() != 0) {
+			//	dataGridView3->Rows[l]->Cells[4]->Value = pow((intervals[l].getfrequency() - intervals[l].getprob() * numofexp), 2)
+			//		/ intervals[l].getprob() * numofexp;
+			//	hi2 += pow((intervals[l].getfrequency() - intervals[l].getprob() * numofexp), 2)
+			//		/ intervals[l].getprob() * numofexp;
+			//}
+			//else {
+			//	dataGridView3->Rows[l]->Cells[4]->Value = 0;
+			//}
+
 			l++;
 		}
+
+		dataGridView3->Rows[1]->Cells[5]->Value = 0;/*hi2;*/
 
 		//deviation of the estimated probability from the theoretical
 
