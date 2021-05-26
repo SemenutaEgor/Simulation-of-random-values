@@ -1,10 +1,14 @@
 ﻿#pragma once
+//#include <boost/math/distributions/chi_squared.hpp>
 #include <math.h>
 #include <random>
 #include <vector>
 #include "randval.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <algorithm>
+#include <iostream>
+#include <random>
 
 namespace Graph {
 
@@ -793,8 +797,6 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
 			return sin(2 * x);
 		}
 
-
-
 	private: System::Void startbutton_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		GraphPane^ panel = zedGraphControl1->GraphPane;
@@ -884,10 +886,12 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
 		}
 
 		//set theoretical PDF
+		double limit = 0;
+		limit = std::fmax(numofexp + 1, randvalarr.back().getval() + 1);
 		double container = 0;
 		std::vector<double> ThPDF;
 		ThPDF.push_back(container);
-		for (int i = 1; i <= numofexp; i++) {
+		for (int i = 1; i <= limit; i++) {
 			container = 1 - pow((1 - probability), i);
 			ThPDF.push_back(container);
 		}
@@ -956,134 +960,59 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
 		double numofint = Convert::ToDouble(interbox->Text);
 
 		std::vector<double> intervals(numofint, 0); //vector of intervals
+		std::vector<double> interprobs(numofint, 0); //vector of probabilities to fall into the interval
+		double cumulative_prob = 0;
+
+		intervals[0] += randvalarr[0].getfrequency();
 		int it = 1;
 		for (it; it <= numofint - 2; it++) {
 			for (randval j : randvalarr) {
-				if ((j.getval() < it) && (j.getval() >= it - 1)) {
+				if ((j.getval() < it + 0.5) && (j.getval() >= it - 1 + 0.5)) {
 					intervals[it] += j.getfrequency();
+					//interprobs[it] += probability * pow((1 - probability), j.getval());
+					//cumulative_prob += interprobs[it];
 				}
 			}
 		}
 		for (randval j : randvalarr) {
-			if (j.getval() >= it - 1) {
+			if (j.getval() >= it - 1 + 0.5) {
 				intervals[it] += j.getfrequency();
+				//interprobs[it] = 1 - cumulative_prob;
 			}
 		}
 
-
-		//double inter = Convert::ToDouble(interbox->Text) - 1;
-		//std::vector<double> interarr; //vector of signs in intervals
-		//interarr.push_back(0);
-		//randval checking; //??????????
-		//std::vector<randval> intervals; //?????????
-		//int intcounter = 1; //????????
-		//intervals.push_back(randval(intcounter, 0)); 
-		//intcounter++; 
-		//if (inter <= randvalarr.size()) {
-		//	int j = 0;
-		//	for (int i = 0; i < inter - 1; i++) {
-		//		checking = randvalarr[j];
-		//		if (checking.getval() <= i) {
-		//			interarr.push_back(checking.getfrequency());
-		//			intervals.push_back(randval(intcounter, checking.getfrequency()));
-		//			intervals.back().setprob(probability * pow((1 - probability), checking.getval()));
-		//			intcounter++;
-		//			j++;
-		//		}
-		//		else {
-		//			interarr.push_back(0);
-		//			intervals.push_back(randval(intcounter, 0));
-		//			intcounter++;
-		//		}
-		//	}
-		//	double tmp = 0;
-		//	double tmpprob = 0;
-		//	for (j; j < randvalarr.size(); j++) {
-		//		tmp += randvalarr[j].getfrequency();
-		//		tmpprob += probability * pow((1 - probability), randvalarr[j].getval());
-		//	}
-		//	interarr.push_back(tmp);
-		//	intervals.push_back(randval(intcounter, tmp));
-		//	intervals.back().setprob(tmpprob);
-		//	intcounter++;
-		//}
-		//else {
-		//	int j = 0;
-		//	int i = 0;
-		//	int temp = 0;
-		//	double tempprob = 0;
-		//	for (i = 0; i <= randvalarr.back().getval(); i++) {
-		//		checking = randvalarr[j];
-		//		if (checking.getval() <= i) {
-		//			if (interarr.size() < inter) {
-		//				interarr.push_back(checking.getfrequency());
-		//				intervals.push_back(randval(intcounter, checking.getfrequency()));
-		//				intervals.back().setprob(probability * pow((1 - probability), checking.getval()));
-		//				intcounter++;
-		//				j++;
-		//			}
-		//			else {
-		//				temp += checking.getfrequency();
-		//				tempprob += probability * pow((1 - probability), checking.getval());
-		//				j++;
-		//			}
-		//		}
-		//		else if (interarr.size() < inter) {
-		//			interarr.push_back(0);
-		//			intervals.push_back(randval(intcounter, 0));
-		//			intcounter++;
-		//		}
-		//	}
-		//	interarr.push_back(temp);
-		//	intervals.push_back(randval(intcounter, temp));
-		//	intervals.back().setprob(tempprob);
-		//	intcounter++;
-		//	for (i; i < inter - 1; i++) {
-		//			interarr.push_back(0);
-		//			intervals.push_back(randval(intcounter, 0));
-		//			intcounter++;
-		//	}
-		//}
-
-		std::vector<double> interprobarr;
-		interprobarr.push_back(0);
-		for (int i = 1; i <= intervals.size(); i++) {
-			double tempsum = 0;
-			for (randval m : randvalarr) {
-				if ((m.getval() >= i) && (m.getval() < i + 1)) {
-					tempsum += m.getprob();
-				}
-			}
-			interprobarr.push_back(tempsum);
+		int last = 0;
+		for (int i = 0; i <= numofint - 2; i++) {
+				interprobs[i] += probability * pow((1 - probability), i);
+				cumulative_prob += interprobs[i];
+				last++;
 		}
+		interprobs[last] = 1 - cumulative_prob;
 
 		dataGridView3->Rows->Clear();
 		int l = 0;
 		double hi2 = 0;
 		for (double j : intervals) {
 			dataGridView3->Rows->Add();
-			dataGridView3->Rows[l]->Cells[0]->Value = l+1; //number
-			//dataGridView3->Rows[l]->Cells[1]->Value = interarr[l]; 
-			//dataGridView3->Rows[l]->Cells[2]->Value = interprobarr[l];
+			dataGridView3->Rows[l]->Cells[0]->Value = l+1; 
 			dataGridView3->Rows[l]->Cells[1]->Value = intervals[l];
-			dataGridView3->Rows[l]->Cells[2]->Value = 0; /*intervals[l].getprob();*/
-			dataGridView3->Rows[l]->Cells[3]->Value = 0;/*intervals[l].getprob() * numofexp;*/
-			//if (intervals[l].getprob() != 0) {
-			//	dataGridView3->Rows[l]->Cells[4]->Value = pow((intervals[l].getfrequency() - intervals[l].getprob() * numofexp), 2)
-			//		/ intervals[l].getprob() * numofexp;
-			//	hi2 += pow((intervals[l].getfrequency() - intervals[l].getprob() * numofexp), 2)
-			//		/ intervals[l].getprob() * numofexp;
-			//}
-			//else {
-			//	dataGridView3->Rows[l]->Cells[4]->Value = 0;
-			//}
+			dataGridView3->Rows[l]->Cells[2]->Value = interprobs[l]; 
+			dataGridView3->Rows[l]->Cells[3]->Value = interprobs[l] * numofexp;
+			if (interprobs[l] != 0) {
+				dataGridView3->Rows[l]->Cells[4]->Value = pow((intervals[l] - interprobs[l] * numofexp), 2)
+					/ (interprobs[l] * numofexp);
+				hi2 += pow((intervals[l] - interprobs[l] * numofexp), 2)
+					/ (interprobs[l] * numofexp);
+			}
+			else {
+				dataGridView3->Rows[l]->Cells[4]->Value = 0;
+			}
 
 			l++;
 		}
 
-		dataGridView3->Rows[1]->Cells[5]->Value = 0;/*hi2;*/
-
-		//deviation of the estimated probability from the theoretical
+		dataGridView3->Rows[1]->Cells[5]->Value = hi2;
+		dataGridView3->Rows[1]->Cells[6]->Value = chisqr(numofint - 1, signlevel);
 
 		double maxdiffofprob = *std::max_element(diffofprobarr.begin(), diffofprobarr.end());
 		dataGridView1->Rows[0]->Cells[10]->Value = maxdiffofprob;
@@ -1149,7 +1078,7 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
 		double ymax_limit = 2;
 
 		double xmin = -1;
-		double xmax = numofexp + 1;
+		double xmax = limit;
 
 		// Список точек
 		int i = 0;
@@ -1159,12 +1088,12 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
 		f1_list->Add(-1, 0);
 		f1_list->Add(0, 0);
 		
-		for (int i = 1; i <= numofexp; i++) {
+		for (int i = 1; i <= limit; i++) {
 			f1_list->Add(i - 1, ThPDF[i]);
 			f1_list->Add(i, ThPDF[i]);
 		}
-		f1_list->Add(numofexp, ThPDF[numofexp]);
-		f1_list->Add(numofexp + 1, ThPDF[numofexp]);
+		//f1_list->Add(limit, ThPDF[numofexp]);
+		//f1_list->Add(limit+1, ThPDF[numofexp]);
 
 		//draw sample PDF
 		double prevprob = 0;
@@ -1185,7 +1114,7 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
 			//	dataGridView1->Rows[i]->Cells[2]->Value = floor(f2(x) * 1000) / 1000;
 			//	i++;
 		}
-		f2_list->Add(numofexp + 1, randvalarr.back().getrelcumfreq());
+		f2_list->Add(limit, randvalarr.back().getrelcumfreq());
 
 		LineItem^ Curve1 = panel->AddCurve("F1(x) - theoretical", f1_list, Color::Red, SymbolType::Plus);
 		LineItem^ Curve2 = panel->AddCurve("F2(x) - sample", f2_list, Color::Blue, SymbolType::None);
@@ -1204,6 +1133,8 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
 		zedGraphControl1->AxisChange();
 		// Обновляем график
 		zedGraphControl1->Invalidate();
+
+		/// Test
 
 	}
 	private: System::Void zedGraphControl1_Load(System::Object^ sender, System::EventArgs^ e) {
