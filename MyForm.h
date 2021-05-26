@@ -1,6 +1,5 @@
 ﻿#pragma once
 //#include <boost/math/distributions/chi_squared.hpp>
-#include <math.h>
 #include <random>
 #include <vector>
 #include "randval.h"
@@ -9,6 +8,9 @@
 #include <algorithm>
 #include <iostream>
 #include <random>
+
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 namespace Graph {
 
@@ -146,6 +148,23 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ averexp;
 private: System::Windows::Forms::DataGridViewTextBoxColumn^ hi2;
 private: System::Windows::Forms::DataGridViewTextBoxColumn^ hi2sum;
 private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column5;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column4;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -318,6 +337,8 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
 			this->hi2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->hi2sum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Column3 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Column5 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Column4 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->task14))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
@@ -688,9 +709,9 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
 			// dataGridView3
 			// 
 			this->dataGridView3->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView3->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(7) {
+			this->dataGridView3->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(9) {
 				this->dataGridViewTextBoxColumn1,
-					this->dataGridViewTextBoxColumn7, this->probinter, this->averexp, this->hi2, this->hi2sum, this->Column3
+					this->dataGridViewTextBoxColumn7, this->probinter, this->averexp, this->hi2, this->hi2sum, this->Column3, this->Column5, this->Column4
 			});
 			this->dataGridView3->Location = System::Drawing::Point(10, 390);
 			this->dataGridView3->Margin = System::Windows::Forms::Padding(5);
@@ -738,17 +759,31 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
 			// 
 			// hi2sum
 			// 
-			this->hi2sum->HeaderText = L"hi^2";
+			this->hi2sum->HeaderText = L"R0";
 			this->hi2sum->MinimumWidth = 6;
 			this->hi2sum->Name = L"hi2sum";
 			this->hi2sum->Width = 125;
 			// 
 			// Column3
 			// 
-			this->Column3->HeaderText = L"Column3";
+			this->Column3->HeaderText = L"F(R0)";
 			this->Column3->MinimumWidth = 6;
 			this->Column3->Name = L"Column3";
 			this->Column3->Width = 125;
+			// 
+			// Column5
+			// 
+			this->Column5->HeaderText = L"Chi2";
+			this->Column5->MinimumWidth = 6;
+			this->Column5->Name = L"Column5";
+			this->Column5->Width = 125;
+			// 
+			// Column4
+			// 
+			this->Column4->HeaderText = L"Решение";
+			this->Column4->MinimumWidth = 6;
+			this->Column4->Name = L"Column4";
+			this->Column4->Width = 125;
 			// 
 			// MyForm
 			// 
@@ -797,6 +832,99 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
 			return sin(2 * x);
 		}
 
+		int Factorial(int n)
+		{
+			int factorial = 1;
+			for (int i = 2; i <= n; i++)
+				factorial = factorial * i;
+			return factorial;
+		}
+
+		//double Gamma(int k)
+		//{
+		//	double gamma = 1;
+		//	if (k % 2 == 0)
+		//		return Factorial(k / 2 - 1);
+		//	else
+		//	{
+		//		if (k == 1)
+		//			return sqrt(M_PI);
+		//		gamma = (k * 0.5 - 1.0) * Gamma(k - 2);
+		//	}
+		//	return gamma;
+		//}
+
+		double f_x2(double x, int k)
+		{
+			if (x <= 0)
+				return 0;
+			else
+			{
+				double value = (pow(2, -k * 0.5) * pow(tgamma(k), -1) * pow(x, k * 0.5 - 1)
+					* exp(-x * 0.5));
+				return value;
+			}
+		}
+
+		double FR0(double R0, int k)
+		{
+			double h = R0 / 500;
+
+			double FR0 = 0;
+			for (double i = 0; i < R0; i += h)
+				FR0 += h * f_x2(i + h / 2, k);
+			return 1 - FR0;
+		}
+
+		static double igf(double S, double Z)
+		{
+			if (Z < 0.0)
+			{
+				return 0.0;
+			}
+			double Sc = (1.0 / S);
+			Sc *= pow(Z, S);
+			Sc *= exp(-Z);
+
+			double Sum = 1.0;
+			double Nom = 1.0;
+			double Denom = 1.0;
+
+			for (int I = 0; I < 200; I++)
+			{
+				Nom *= Z;
+				S++;
+				Denom *= S;
+				Sum += (Nom / Denom);
+			}
+
+			return Sum * Sc;
+		}
+
+		double chisqr(int Dof, double Cv)
+		{
+			if (Cv < 0 || Dof < 1)
+			{
+				return 0.0;
+			}
+			double K = ((double)Dof) * 0.5;
+			double X = Cv * 0.5;
+			if (Dof == 2)
+			{
+				return exp(-1.0 * X);
+			}
+
+			double PValue = igf(K, X);
+			if (isnan(PValue) || isinf(PValue) || PValue <= 1e-8)
+			{
+				return 1e-14;
+			}
+
+			PValue /= tgamma(K); 
+
+			return (1.0 - PValue);
+		}
+
 	private: System::Void startbutton_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		GraphPane^ panel = zedGraphControl1->GraphPane;
@@ -806,7 +934,8 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
 
 		//take the probability and the number of experiments from textboxes
 
-		double probability = Convert::ToDouble(probbox->Text);
+		double rec_probability = Convert::ToDouble(probbox->Text);
+		double probability = 1 - rec_probability;
 		double numofexp = Convert::ToDouble(numofexpbox->Text);
 
 		std::vector<randval> randvalarr; //vector of random variables without repetitions
@@ -969,15 +1098,12 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
 			for (randval j : randvalarr) {
 				if ((j.getval() < it + 0.5) && (j.getval() >= it - 1 + 0.5)) {
 					intervals[it] += j.getfrequency();
-					//interprobs[it] += probability * pow((1 - probability), j.getval());
-					//cumulative_prob += interprobs[it];
 				}
 			}
 		}
 		for (randval j : randvalarr) {
 			if (j.getval() >= it - 1 + 0.5) {
 				intervals[it] += j.getfrequency();
-				//interprobs[it] = 1 - cumulative_prob;
 			}
 		}
 
@@ -1012,7 +1138,20 @@ private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
 		}
 
 		dataGridView3->Rows[1]->Cells[5]->Value = hi2;
-		dataGridView3->Rows[1]->Cells[6]->Value = chisqr(numofint - 1, signlevel);
+		//dataGridView3->Rows[1]->Cells[6]->Value = chisqr(numofint - 1, signlevel);
+		//dataGridView3->Rows[1]->Cells[6]->Value = f_x2(signlevel, numofint - 1);
+
+		dataGridView3->Rows[1]->Cells[6]->Value = FR0(hi2, numofint - 1);
+		double chi2 = chisqr(numofint - 1, signlevel);
+		dataGridView3->Rows[1]->Cells[7]->Value = chi2;
+
+		if (FR0(hi2, numofint - 1) <= chi2) 
+			dataGridView3->Rows[1]->Cells[8]->Value = "Принимаем";
+		else
+			dataGridView3->Rows[1]->Cells[8]->Value = "Отвергаем";
+
+		//double test = alglib::invchisquaredistribution(k - 1, signlevel);
+
 
 		double maxdiffofprob = *std::max_element(diffofprobarr.begin(), diffofprobarr.end());
 		dataGridView1->Rows[0]->Cells[10]->Value = maxdiffofprob;
